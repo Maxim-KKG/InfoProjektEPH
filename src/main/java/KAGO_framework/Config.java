@@ -13,7 +13,7 @@ public class Config {
     public final static String JAVA_SUPPORTED = "Java 11 bis Java 15";
 
     // Schaltet die Infomeldungen des Frameworks an oder aus
-    public final static boolean INFO_MESSAGES = true;
+    public final static boolean INFO_MESSAGES = false;
     public final static boolean DEBUG = false;
 
 }
