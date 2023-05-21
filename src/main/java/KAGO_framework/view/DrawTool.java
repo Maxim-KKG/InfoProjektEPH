@@ -366,5 +366,4 @@ public class DrawTool {
     public JComponent getParent(){
         return parent;
     }
-
 }
