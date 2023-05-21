@@ -21,6 +21,8 @@ public class Player extends InteractiveGraphicalObject {
     private double speed = 300;
     private double degrees = 0;
     private ProgramController p;
+    private boolean mouseDown;
+    private double shootingTimer = 0;
 
     public Player(double x, double y, ProgramController p){
         this.x = x;
@@ -60,6 +62,11 @@ public class Player extends InteractiveGraphicalObject {
         } else if (ViewController.isKeyDown(83)) {
             y += speed * dt;
         }
+        shootingTimer += dt;
+        if(mouseDown && shootingTimer > 0.1){
+            shootingTimer = 0;
+            p.spawnBullet(x,y,degrees);
+        }
     }
     @Override
     public void mouseMoved(MouseEvent e) {
@@ -69,9 +76,19 @@ public class Player extends InteractiveGraphicalObject {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if(e.getButton() == 1){
-            p.spawnBullet(x,y,degrees);
-        }
+        mouseX = e.getX();
+        mouseY = e.getY();
+        mouseDown = true;
     }
 
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        mouseDown = false;
+    }
 }
