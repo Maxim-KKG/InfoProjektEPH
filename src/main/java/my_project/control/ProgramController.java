@@ -1,9 +1,9 @@
 package my_project.control;
 
 import KAGO_framework.control.ViewController;
-import my_project.model.Background;
-import my_project.model.Bullet;
-import my_project.model.Player;
+import my_project.model.*;
+
+import java.util.ArrayList;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -15,7 +15,8 @@ public class ProgramController {
 
 
     // Referenzen
-    private ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
+    public static ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
+    public static ArrayList<Enemy> enemies = new ArrayList<>();
 
     /**
      * Konstruktor:
@@ -38,6 +39,8 @@ public class ProgramController {
         Player player = new Player(300,300,this);
         viewController.draw(player);
         viewController.register(player);
+        EnemySpawner enemySpawner = new EnemySpawner(player,this);
+        viewController.draw(enemySpawner);
     }
 
     /**
@@ -51,5 +54,11 @@ public class ProgramController {
     public void spawnBullet(double x, double y, double degrees){
         Bullet b = new Bullet(x+Math.cos(degrees)*20,y+Math.sin(degrees)*20,degrees);
         viewController.draw(b);
+    }
+
+    public void spawnEnemy(double x, double y, Player p){
+        Enemy e = new Enemy(x,y,p);
+        enemies.add(e);
+        viewController.draw(e);
     }
 }

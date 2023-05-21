@@ -1,7 +1,9 @@
 package my_project.model;
 
+import KAGO_framework.control.ViewController;
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
+import my_project.control.ProgramController;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -38,6 +40,7 @@ public class Bullet extends GraphicalObject {
 
     @Override
     public void update(double dt){
+        checkAndHandleCollision();
         timer += dt;
         if(timer > 0.05){
             if(currentPic == pic1){
@@ -51,5 +54,16 @@ public class Bullet extends GraphicalObject {
         double dy = Math.sin(degrees)*500*dt;
         x += dx;
         y += dy;
+    }
+
+    private void checkAndHandleCollision(){
+        for(Enemy e : ProgramController.enemies){
+            if(e.getX()-x > -15 && e.getX()-x < 15 && e.getY()-y > -15 && e.getY()-y < 15){
+                ProgramController.enemies.remove(e);
+                ProgramController.viewController.removeDrawable(e);
+                ProgramController.viewController.removeDrawable(this);
+                break;
+            }
+        }
     }
 }
