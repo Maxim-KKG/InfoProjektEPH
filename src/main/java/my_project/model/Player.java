@@ -7,6 +7,7 @@ import my_project.control.ProgramController;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 
 /**
  * Repräsentiert eine Kugel (einen Kreis), der in eine Schlange eingefügt werden soll. Dabei muss jeder QueueBall immer
@@ -35,9 +36,11 @@ public class Player extends InteractiveGraphicalObject {
     @Override
     public void draw(DrawTool drawTool) {
         g2d = drawTool.getGraphics2D();
+        AffineTransform old = g2d.getTransform();
         degrees = Math.atan2(mouseY-y,mouseX-x);
         g2d.rotate(degrees,x,y);
         drawTool.drawImage(getMyImage(),x-15,y-12.5);
+        g2d.setTransform(old);
     }
 
     /**
@@ -67,7 +70,7 @@ public class Player extends InteractiveGraphicalObject {
     @Override
     public void mousePressed(MouseEvent e) {
         if(e.getButton() == 1){
-            p.spawnBullet(x,y,degrees,this);
+            p.spawnBullet(x,y,degrees);
         }
     }
 }

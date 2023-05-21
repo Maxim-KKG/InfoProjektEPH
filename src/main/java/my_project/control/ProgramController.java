@@ -48,8 +48,8 @@ public class ProgramController {
 
     }
 
-    public void spawnBullet(double x, double y, double degrees, Player p){
-        Bullet b = new Bullet(x,y,degrees,p);
+    public void spawnBullet(double x, double y, double degrees){
+        Bullet b = new Bullet(x+Math.cos(degrees)*20,y+Math.sin(degrees)*20,degrees);
         viewController.draw(b);
     }
 }
