@@ -3,8 +3,6 @@ package my_project.model;
 import KAGO_framework.model.GraphicalObject;
 import my_project.control.ProgramController;
 
-import static java.lang.Math.random;
-
 public class EnemySpawner extends GraphicalObject {
 
     private Player p;
