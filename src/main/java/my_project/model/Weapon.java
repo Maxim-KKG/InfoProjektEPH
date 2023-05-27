@@ -6,4 +6,7 @@ public abstract class Weapon extends GraphicalObject {
     public Weapon(){
 
     }
+    public void upgrade(){
+
+    }
 }

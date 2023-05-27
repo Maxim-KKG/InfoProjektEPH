@@ -4,6 +4,7 @@ import KAGO_framework.control.ViewController;
 import KAGO_framework.model.InteractiveGraphicalObject;
 import KAGO_framework.view.DrawTool;
 import my_project.control.ProgramController;
+import my_project.model.weapons.Egg;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -27,7 +28,9 @@ public class Player extends InteractiveGraphicalObject {
         this.x = x;
         this.y = y;
         this.p = p;
-        this.setNewImage("src/main/resources/graphic/Tank.png");
+        this.setNewImage("src/main/resources/graphic/duck/DuckRight1.png");
+        setPictures();
+
     }
 
     @Override
