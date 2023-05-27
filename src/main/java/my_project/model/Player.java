@@ -6,19 +6,28 @@ import KAGO_framework.view.DrawTool;
 import my_project.control.ProgramController;
 import my_project.model.weapons.Egg;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player extends InteractiveGraphicalObject {
 
     private double mouseX;
     private double mouseY;
-    private Graphics2D g2d;
     private double speed = 300;
     private double degrees = 0;
     private ProgramController p;
+    private boolean facingRight = true;
+    private int pictureIndex = 1;
+    private int usedPictureIndex = 1;
+    private double moveTimer = 0;
     private boolean mouseDown;
     private double shootingTimer = 0;
     private ArrayList<BufferedImage> images = new ArrayList<>();
@@ -32,15 +41,37 @@ public class Player extends InteractiveGraphicalObject {
         setPictures();
 
     }
+    public void receiveWeapon(Weapon w){
+        if(weapons.get(w.getClass()) != null){
+            weapons.get(w.getClass()).upgrade();
+        }else
+        {
+            //Constructor c = Class.forName(w.getClass()).getConstructor(new Object[]{Integer.class, String.class});
+            //c.setAccessible(true);
+            //Child instance = (Child) c.newInstance(new Object[]{i , s}) ;
+
+        }
+    }
+    private void setPictures(){
+        for(int i = 1; i <= 6; i++){
+            addPicturesToList("src/main/resources/graphic/duck/DuckRight"+i+".png");
+        }
+        for(int i = 1; i <= 6; i++){
+            addPicturesToList("src/main/resources/graphic/duck/DuckLeft"+i+".png");
+        }
+    }
+
+    private void addPicturesToList(String pathToImage){
+        try {
+            images.add(ImageIO.read(new File(pathToImage)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public void draw(DrawTool drawTool) {
-        g2d = drawTool.getGraphics2D();
-        AffineTransform old = g2d.getTransform();
-        degrees = Math.atan2(mouseY-y,mouseX-x);
-        g2d.rotate(degrees,x,y);
-        drawTool.drawImage(getMyImage(),x-15,y-12.5);
-        g2d.setTransform(old);
+        drawTool.drawImage(images.get(usedPictureIndex-1),x-8,y-8);
     }
 
     /**
@@ -50,15 +81,41 @@ public class Player extends InteractiveGraphicalObject {
      */
     @Override
     public void update(double dt){
+        degrees = Math.atan2(mouseY-y,mouseX-x);
+        boolean movedX = true;
+        boolean movedY = true;
         if(ViewController.isKeyDown(65)){
+            facingRight = false;
             x -= speed * dt;
         } else if (ViewController.isKeyDown(68)) {
+            facingRight = true;
             x += speed * dt;
+        } else {
+            movedX = false;
         }
         if(ViewController.isKeyDown(87)){
             y -= speed * dt;
         } else if (ViewController.isKeyDown(83)) {
             y += speed * dt;
+        } else {
+            movedY = false;
+        }
+        if(!movedX && !movedY){
+            moveTimer = 0;
+        }else{
+            moveTimer += dt;
+            if(moveTimer > 0.1){
+                moveTimer = 0;
+                if(pictureIndex < 6)
+                    pictureIndex += 1;
+                else
+                    pictureIndex = 1;
+            }
+        }
+        if(facingRight){
+            usedPictureIndex = pictureIndex;
+        }else{
+            usedPictureIndex = pictureIndex + 6;
         }
         shootingTimer += dt;
         if(mouseDown && shootingTimer > 0.1){
