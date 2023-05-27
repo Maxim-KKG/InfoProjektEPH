@@ -8,11 +8,8 @@ import my_project.control.ProgramController;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.util.HashMap;
 
-/**
- * Repräsentiert eine Kugel (einen Kreis), der in eine Schlange eingefügt werden soll. Dabei muss jeder QueueBall immer
- * seinen Vorgänger kennen, damit er zu ihm Abstand halten kann.
- */
 public class Player extends InteractiveGraphicalObject {
 
     private double mouseX;
@@ -23,6 +20,7 @@ public class Player extends InteractiveGraphicalObject {
     private ProgramController p;
     private boolean mouseDown;
     private double shootingTimer = 0;
+    private HashMap<Class,>
 
     public Player(double x, double y, ProgramController p){
         this.x = x;
@@ -31,10 +29,6 @@ public class Player extends InteractiveGraphicalObject {
         this.setNewImage("src/main/resources/graphic/Tank.png");
     }
 
-
-    /**
-     * Selbsterklärend: zeichnet den die optische Repräsentation eines Ball-Objekts. Wird vom Framework automatisch aufgerufen (jeden Frame 1x).
-     */
     @Override
     public void draw(DrawTool drawTool) {
         g2d = drawTool.getGraphics2D();
