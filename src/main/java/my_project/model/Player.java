@@ -71,7 +71,7 @@ public class Player extends InteractiveGraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawImage(images.get(usedPictureIndex-1),x-8,y-8);
+        drawTool.drawImage(images.get(usedPictureIndex-1),x-16,y-17);
     }
 
     /**
@@ -102,6 +102,7 @@ public class Player extends InteractiveGraphicalObject {
         }
         if(!movedX && !movedY){
             moveTimer = 0;
+            pictureIndex = 1;
         }else{
             moveTimer += dt;
             if(moveTimer > 0.1){

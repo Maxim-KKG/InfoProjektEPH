@@ -7,11 +7,12 @@ import java.awt.*;
 
 public class Background extends GraphicalObject{
 
-    public Background(){}
+    public Background(){
+        setNewImage("src/main/resources/graphic/Background.png");
+    }
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.setCurrentColor(Color.BLACK);
-        drawTool.drawFilledRectangle(0,0,600,600);
+        drawTool.drawImage(getMyImage(),0,0);
     }
 }
