@@ -17,9 +17,8 @@ public class Bullet extends GraphicalObject {
     private BufferedImage currentPic;
     private Graphics2D g2d;
 
-    public Bullet(double x, double y, double degrees){
-        this.x = x;
-        this.y = y;
+    public Bullet(double x, double y,Player player, double degrees){
+        super(x,y,player);
         this.degrees = degrees;
         setNewImage("src/main/resources/graphic/Bullet1.png");
         pic1 = getMyImage();

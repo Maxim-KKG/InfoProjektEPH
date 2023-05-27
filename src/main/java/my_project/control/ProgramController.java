@@ -2,6 +2,7 @@ package my_project.control;
 
 import KAGO_framework.control.ViewController;
 import my_project.model.*;
+import my_project.model.weapons.Egg;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class ProgramController {
     // Referenzen
     public static ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
     public static ArrayList<Enemy> enemies = new ArrayList<>();
+    //public static ArrayList<Egg> eggs = new ArrayList<>();
 
     /**
      * Konstruktor:
@@ -51,9 +53,9 @@ public class ProgramController {
 
     }
 
-    public void spawnBullet(double x, double y, double degrees){
-        Bullet b = new Bullet(x+Math.cos(degrees)*20,y+Math.sin(degrees)*20,degrees);
-        viewController.draw(b);
+    public void spawnEgg(double x, double y, double degrees){
+        Egg e = new Egg(x+Math.cos(degrees)*20,y+Math.sin(degrees)*20,degrees);
+        viewController.draw(e);
     }
 
     public void spawnEnemy(double x, double y, Player p){

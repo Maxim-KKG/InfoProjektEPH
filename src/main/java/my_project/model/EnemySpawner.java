@@ -16,6 +16,7 @@ public class EnemySpawner extends GraphicalObject {
 
     @Override
     public void update(double dt) {
+
         timer += dt;
         if(timer > 0.5){
             timer = 0;
@@ -24,5 +25,7 @@ public class EnemySpawner extends GraphicalObject {
             double yPos = Math.sin(degrees)*360 + 300;
             programController.spawnEnemy(xPos,yPos,p);
         }
+
+
     }
 }

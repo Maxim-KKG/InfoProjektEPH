@@ -3,13 +3,14 @@ package my_project.model;
 import KAGO_framework.control.ViewController;
 import KAGO_framework.model.InteractiveGraphicalObject;
 import KAGO_framework.view.DrawTool;
+import my_project.Config;
 import my_project.control.ProgramController;
-import my_project.model.weapons.Egg;
+import my_project.model.weapons.Gyro;
+import my_project.model.weapons.Weapon;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -121,7 +122,7 @@ public class Player extends InteractiveGraphicalObject {
         shootingTimer += dt;
         if(mouseDown && shootingTimer > 0.1){
             shootingTimer = 0;
-            p.spawnBullet(x,y,degrees);
+            p.spawnEgg(x, y, degrees);
         }
     }
     @Override
