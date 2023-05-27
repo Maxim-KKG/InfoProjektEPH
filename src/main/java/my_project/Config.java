@@ -17,4 +17,7 @@ public class Config {
     // Weitere Optionen für das Projekt
     public final static boolean useSound = true;
 
+    //Config für Ducktato
+    public final static int UPGRADE_LIMIT = 6;
+
 }

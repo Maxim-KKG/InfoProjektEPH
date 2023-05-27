@@ -26,6 +26,7 @@ public class Egg extends Weapon {
         AffineTransform old = g2d.getTransform();//Hihihaw
         g2d.rotate(degrees+Math.PI*0.5,x,y);
         drawTool.drawImage(pic,x,y);
+        g2d.setTransform(old);//PAh Pah Pah
     }
     public void update(double dt){
         checkAndHandleCollision();
