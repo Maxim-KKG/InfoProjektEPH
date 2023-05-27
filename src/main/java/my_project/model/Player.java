@@ -20,7 +20,8 @@ public class Player extends InteractiveGraphicalObject {
     private ProgramController p;
     private boolean mouseDown;
     private double shootingTimer = 0;
-    private HashMap<Class,>
+    private ArrayList<BufferedImage> images = new ArrayList<>();
+    private HashMap<Class<?>,Weapon> weapons = new HashMap<>();
 
     public Player(double x, double y, ProgramController p){
         this.x = x;
@@ -85,4 +86,6 @@ public class Player extends InteractiveGraphicalObject {
     public void mouseReleased(MouseEvent e) {
         mouseDown = false;
     }
+
+
 }
