@@ -6,19 +6,27 @@ import my_project.control.ProgramController;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 public class Enemy extends GraphicalObject {
 
     private Player p;
-    private Graphics2D g2d;
     private double speed = 100;
     private double degrees = 0;
+    private BufferedImage image1;
+    private BufferedImage image2;
+    private BufferedImage currentImage;
+    private double timer;
 
     public Enemy(double x, double y, Player p){
         this.x = x;
         this.y = y;
         this.p = p;
-        setNewImage("src/main/resources/graphic/Enemy.png");
+        setNewImage("src/main/resources/graphic/fly/Fly1.png");
+        image1 = getMyImage();
+        setNewImage("src/main/resources/graphic/fly/Fly2.png");
+        image2 = getMyImage();
+        currentImage = image1;
     }
 
     public void die(){
@@ -29,12 +37,8 @@ public class Enemy extends GraphicalObject {
     }
     @Override
     public void draw(DrawTool drawTool) {
-        g2d = drawTool.getGraphics2D();
-        AffineTransform old = g2d.getTransform();
         degrees = Math.atan2(p.getY()-y,p.getX()-x);
-        g2d.rotate(degrees,x,y);
-        drawTool.drawImage(getMyImage(),x-15,y-12.5);
-        g2d.setTransform(old);
+        drawTool.drawImage(currentImage,x-15,y-12.5);
     }
 
     @Override
@@ -43,6 +47,15 @@ public class Enemy extends GraphicalObject {
         double dy = Math.sin(degrees)*speed*dt;
         x += dx;
         y += dy;
+        timer += dt;
+        if(timer > 0.1){
+            if(currentImage == image1){
+                currentImage = image2;
+            }else{
+                currentImage = image1;
+            }
+            timer = 0;
+        }
     }
 
 }

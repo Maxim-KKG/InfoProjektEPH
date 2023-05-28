@@ -13,6 +13,6 @@ public class Background extends GraphicalObject{
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawImage(getMyImage(),0,0);
+        drawTool.drawImage(getMyImage(),-50,-50);
     }
 }
