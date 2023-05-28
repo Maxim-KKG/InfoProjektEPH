@@ -72,6 +72,10 @@ public abstract class Weapon extends GraphicalObject {
             if (e.collidesWith(gO)) {
                 e.die();
                 i.remove();
+                if (hasPierce){
+                    ProgramController.viewController.removeDrawable(this);
+                    break;
+                }
             }
         }
     }
