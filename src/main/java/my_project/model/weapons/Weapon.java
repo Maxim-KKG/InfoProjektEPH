@@ -34,6 +34,7 @@ public abstract class Weapon extends GraphicalObject {
             ProgramController.viewController.removeDrawable(this);
         }
     }
+
     public void upgrade(){
         level++;
     }

@@ -1,5 +1,7 @@
 package KAGO_framework.view;
 
+import my_project.model.Statics;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.*;
@@ -23,7 +25,7 @@ public class DrawTool {
      * @param y Die y-Koordinate der oberen linken Ecke
      */
     public void drawImage(BufferedImage bI, double x, double y){
-        if (graphics2D!= null) graphics2D.drawImage(bI, (int)x, (int)y, null);
+        if (graphics2D!= null) graphics2D.drawImage(bI, (int)x + (int)Statics.cameraX, (int)y + (int)Statics.cameraY, null);
     }
 
     /**

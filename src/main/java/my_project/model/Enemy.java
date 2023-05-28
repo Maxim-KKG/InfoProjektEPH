@@ -22,9 +22,10 @@ public class Enemy extends GraphicalObject {
     }
 
     public void die(){
-
         ProgramController.viewController.removeDrawable(this);
-        ProgramController.viewController.draw(new Bread(x,y));
+        Statics.cameraShake(200,0.1);
+        if(Math.random() > 0.5) // TODO: die Wahrscheinlichkeit ist gerade festgeschrieben, aber es soll so sein, dass man die Drop-Rate steigern kann mit einem Upgrade
+            ProgramController.viewController.draw(new Bread(x,y));
     }
     @Override
     public void draw(DrawTool drawTool) {

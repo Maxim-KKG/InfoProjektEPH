@@ -38,6 +38,8 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
+        Statics statics = new Statics();
+        viewController.draw(statics);
         Background background = new Background();
         viewController.draw(background);
         Player player = new Player(300,300,this);
@@ -45,7 +47,6 @@ public class ProgramController {
         viewController.register(player);
         EnemySpawner enemySpawner = new EnemySpawner(player,this);
         viewController.draw(enemySpawner);
-
     }
 
     /**
