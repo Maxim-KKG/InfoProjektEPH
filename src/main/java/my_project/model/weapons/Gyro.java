@@ -1,7 +1,6 @@
 package my_project.model.weapons;
 
 import KAGO_framework.view.DrawTool;
-import my_project.model.Enemy;
 import my_project.model.Player;
 
 import java.awt.*;
@@ -11,8 +10,11 @@ public class Gyro extends Weapon{
 
     public static ArrayList<double[]> gyros = new ArrayList<>();
     private double rotation;
-    private double hello;
+    private double timer;
     private double playerDistance = 100;
+    private double xR;
+    private double yR;
+    private double speed;
 
     public Gyro(double x, double y,Player player){
         super(x,y,player);
@@ -34,14 +36,12 @@ public class Gyro extends Weapon{
 
     @Override
     public void update(double dt) {
-        hello += 0.01 * dt;
-        double distance = (Math.PI * 2) / level;
-        int i = 0;
-        for (double[] g: gyros) {
-            g[0] = player.getX() + Math.cos(hello + i * distance) * playerDistance;
-            g[1] = player.getY() + Math.sin(hello + i * distance) * playerDistance;
-            i++;
-        }
+        rotation += 0.01 * dt;
+        speed = playerDistance *  Math.cos(rotation);
+        double old = speed;
+        x = player.getX() +  speed;
+        speed = old;
+        //y = player.getY() +  playerDistance;
     }
 
     @Override

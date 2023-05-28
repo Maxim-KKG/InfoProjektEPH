@@ -43,6 +43,8 @@ public class ProgramController {
         viewController.register(player);
         EnemySpawner enemySpawner = new EnemySpawner(player,this);
         viewController.draw(enemySpawner);
+        Test t = new Test(200,200);
+        viewController.draw(t);
     }
 
     /**
