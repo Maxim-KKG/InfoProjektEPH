@@ -34,6 +34,7 @@ public class Player extends InteractiveGraphicalObject {
     private ArrayList<BufferedImage> images = new ArrayList<>();
     private HashMap<Class<?>, Weapon> weapons = new HashMap<>();
     private ArrayList<Class<?>> drawWeapons = new ArrayList<>();
+    private double timer;
 
 
     private boolean gyro;
@@ -53,10 +54,10 @@ public class Player extends InteractiveGraphicalObject {
             if (weapons.get(weapon.getClass()).getLevel() < Config.UPGRADE_LIMIT) {
                 weapons.get(weapon.getClass()).upgrade();
             }
-            return;
         } else {
             weapons.put(weapon.getClass(),weapon);
             drawWeapons.add(weapon.getClass());
+            ProgramController.viewController.draw(weapon);
         }
     }
 
@@ -80,9 +81,6 @@ public class Player extends InteractiveGraphicalObject {
     @Override
     public void draw(DrawTool drawTool) {
         drawTool.drawImage(images.get(usedPictureIndex-1),x-16,y-17);
-        for (Class<?> name: drawWeapons) {
-            ProgramController.viewController.draw( weapons.get(name));
-        }
     }
 
     /**
@@ -134,9 +132,10 @@ public class Player extends InteractiveGraphicalObject {
             shootingTimer = 0;
             p.spawnEgg(x, y, degrees);
         }
-        if (ViewController.isKeyDown(KeyEvent.VK_SPACE) && !gyro){
+        timer += dt;
+        if (ViewController.isKeyDown(KeyEvent.VK_SPACE) && timer > 1){
+            timer = 0;
             receiveWeapon(new Gyro(x,y,this));
-            gyro = true;
         }
     }
 

@@ -5,10 +5,16 @@ import my_project.control.ProgramController;
 import my_project.model.Enemy;
 import my_project.model.Player;
 
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.util.Iterator;
+
 public abstract class Weapon extends GraphicalObject {
     protected double degrees;
     protected Player player;
-    protected int level = 1;
+    protected int level;
+    protected boolean hasPierce = true;
+    private Graphics2D g2d;
     public Weapon(double x, double y,Player player){
         this.x = x;
         this.y = y;
@@ -22,13 +28,45 @@ public abstract class Weapon extends GraphicalObject {
     }
 
     protected void checkAndHandleCollision(){
-        for(Enemy e : ProgramController.enemies){
+        Iterator<Enemy> i = ProgramController.enemies.iterator();
+        while(i.hasNext()){
+            Enemy e = i.next();
             if(e.getX()-x > -15 && e.getX()-x < 15 && e.getY()-y > -15 && e.getY()-y < 15){
-                ProgramController.enemies.remove(e);
-                ProgramController.viewController.removeDrawable(e);
-                ProgramController.viewController.removeDrawable(this);
-                break;
+                e.die();
+                i.remove();
+                if (hasPierce){
+                    ProgramController.viewController.removeDrawable(this);
+                    break;
+                }
             }
         }
+    }
+    protected void checkAndHandelCollision(double x, double y,double radius){
+        Iterator<Enemy> i = ProgramController.enemies.iterator();
+        while(i.hasNext()){
+            Enemy e = i.next();
+            if (e.getX() < x + radius && e.getX() + e.getWidth() > x - radius && e.getY() < y + radius && e.getY() + e.getHeight() > y - radius) {
+                e.die();
+                i.remove();
+            }
+        }
+    }
+    protected void checkAndHandelCollision(GraphicalObject gO){
+        Iterator<Enemy> i = ProgramController.enemies.iterator();
+        while(i.hasNext()){
+            Enemy e = i.next();
+            if (e.collidesWith(gO)) {
+                e.die();
+                i.remove();
+            }
+        }
+    }
+
+    protected void moveTowardsTarget(double dt, double targetX, double targetY){
+        double degree = Math.atan2(targetY - this.y, targetX - this.x);
+        double dx = Math.cos(degree)*200*dt;
+        double dy = Math.sin(degree)*200*dt;
+        x += dx;
+        y += dy;
     }
 }

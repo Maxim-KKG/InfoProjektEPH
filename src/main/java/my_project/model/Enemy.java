@@ -2,6 +2,7 @@ package my_project.model;
 
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
+import my_project.control.ProgramController;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -20,6 +21,11 @@ public class Enemy extends GraphicalObject {
         setNewImage("src/main/resources/graphic/Enemy.png");
     }
 
+    public void die(){
+
+        ProgramController.viewController.removeDrawable(this);
+        ProgramController.viewController.draw(new Bread(x,y));
+    }
     @Override
     public void draw(DrawTool drawTool) {
         g2d = drawTool.getGraphics2D();

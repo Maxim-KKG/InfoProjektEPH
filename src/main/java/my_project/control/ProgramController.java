@@ -3,6 +3,8 @@ package my_project.control;
 import KAGO_framework.control.ViewController;
 import my_project.model.*;
 import my_project.model.weapons.Egg;
+import my_project.model.weapons.Gyro;
+import my_project.model.weapons.Rocket;
 
 import java.util.ArrayList;
 
@@ -43,8 +45,8 @@ public class ProgramController {
         viewController.register(player);
         EnemySpawner enemySpawner = new EnemySpawner(player,this);
         viewController.draw(enemySpawner);
-        Test t = new Test(200,200);
-        viewController.draw(t);
+        Rocket rocket = new Rocket(player.getX(),player.getY(),player);
+        viewController.draw(rocket);
     }
 
     /**
