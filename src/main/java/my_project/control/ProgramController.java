@@ -45,8 +45,7 @@ public class ProgramController {
         viewController.register(player);
         EnemySpawner enemySpawner = new EnemySpawner(player,this);
         viewController.draw(enemySpawner);
-        Rocket rocket = new Rocket(player.getX(),player.getY(),player);
-        viewController.draw(rocket);
+
     }
 
     /**
@@ -66,5 +65,10 @@ public class ProgramController {
         Enemy e = new Enemy(x,y,p);
         enemies.add(e);
         viewController.draw(e);
+    }
+
+    public void spawnRocket(double x, double y, Player player){
+        Rocket rocket = new Rocket(x,y,player);
+        viewController.draw(rocket);
     }
 }

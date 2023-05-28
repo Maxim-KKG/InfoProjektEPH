@@ -1,6 +1,7 @@
 package my_project.model.weapons;
 
 import KAGO_framework.model.GraphicalObject;
+import my_project.Config;
 import my_project.control.ProgramController;
 import my_project.model.Enemy;
 import my_project.model.Player;
@@ -19,6 +20,19 @@ public abstract class Weapon extends GraphicalObject {
         this.x = x;
         this.y = y;
         this.player = player;
+    }
+
+    public void update(double dt){
+        if(x > Config.WINDOW_WIDTH + 200){
+            ProgramController.viewController.removeDrawable(this);
+        }else if(x < -200){
+            ProgramController.viewController.removeDrawable(this);
+        }
+        if(y > Config.WINDOW_HEIGHT + 200){
+            ProgramController.viewController.removeDrawable(this);
+        }else if(y < -200){
+            ProgramController.viewController.removeDrawable(this);
+        }
     }
     public void upgrade(){
         level++;

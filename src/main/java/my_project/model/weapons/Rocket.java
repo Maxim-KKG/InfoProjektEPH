@@ -26,6 +26,22 @@ public class Rocket extends Weapon{
         g2d.setTransform(old);//PAh Pah Pah
     }
     public void update(double dt){
+        super.update(dt);
+
+        for (Enemy e : ProgramController.enemies) {
+            if (collidesWith(e) || enemy == null || calculateDistance(enemy.getX(), enemy.getY()) < 5) {
+                Iterator<Enemy> i = ProgramController.enemies.iterator();
+                while (i.hasNext()) {
+                    Enemy e2 = i.next();
+                    if (e2.getDistanceTo(this) < explosionRadius) {
+                        e2.die();
+                        i.remove();
+                    }
+                }
+                ProgramController.viewController.removeDrawable(this);
+                break;
+            }
+        }
         moveTowardsTarget(dt,enemy.getX(), enemy.getY());
     }
 }

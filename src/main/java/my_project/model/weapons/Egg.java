@@ -29,21 +29,13 @@ public class Egg extends Weapon {
         g2d.setTransform(old);//PAh Pah Pah
     }
     public void update(double dt){
+        super.update(dt);
         checkAndHandleCollision();
         double dx = Math.cos(degrees)*500*dt;
         double dy = Math.sin(degrees)*500*dt;
         x += dx;
         y += dy;
-        if(x > Config.WINDOW_WIDTH + 200){
-            ProgramController.viewController.removeDrawable(this);
-        }else if(x < -200){
-            ProgramController.viewController.removeDrawable(this);
-        }
-        if(y > Config.WINDOW_HEIGHT + 200){
-            ProgramController.viewController.removeDrawable(this);
-        }else if(y < -200){
-            ProgramController.viewController.removeDrawable(this);
-        }
+
     }
 
 }

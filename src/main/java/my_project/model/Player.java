@@ -6,6 +6,7 @@ import KAGO_framework.view.DrawTool;
 import my_project.Config;
 import my_project.control.ProgramController;
 import my_project.model.weapons.Gyro;
+import my_project.model.weapons.Rocket;
 import my_project.model.weapons.Weapon;
 
 import javax.imageio.ImageIO;
@@ -35,6 +36,8 @@ public class Player extends InteractiveGraphicalObject {
     private HashMap<Class<?>, Weapon> weapons = new HashMap<>();
     private ArrayList<Class<?>> drawWeapons = new ArrayList<>();
     private double timer;
+    private double rocketTimer;
+    private boolean rocket = false;
 
 
     private boolean gyro;
@@ -136,6 +139,16 @@ public class Player extends InteractiveGraphicalObject {
         if (ViewController.isKeyDown(KeyEvent.VK_SPACE) && timer > 1){
             timer = 0;
             receiveWeapon(new Gyro(x,y,this));
+        }
+        if(ViewController.isKeyDown(KeyEvent.VK_G)){
+            rocket = true;
+        }
+        if(rocket == true){
+            rocketTimer += dt;
+        }
+        if(rocketTimer > 5){
+            p.spawnRocket(x,y,this);
+            rocketTimer = 0;
         }
     }
 

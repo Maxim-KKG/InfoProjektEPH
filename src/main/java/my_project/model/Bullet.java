@@ -39,6 +39,7 @@ public class Bullet extends Weapon {
 
     @Override
     public void update(double dt){
+        super.update(dt);
         checkAndHandleCollision();
         timer += dt;
         if(timer > 0.05){
