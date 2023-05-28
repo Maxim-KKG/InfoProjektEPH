@@ -35,6 +35,7 @@ public class Gyro extends Weapon {
             g.setX( player.getX() + Math.cos(rotation + i * distance) * playerDistance);
             g.setY( player.getY() + Math.sin(rotation + i * distance) * playerDistance);
             checkAndHandelCollision(g);
+            g.update(dt);
             i++;
         }
     }
