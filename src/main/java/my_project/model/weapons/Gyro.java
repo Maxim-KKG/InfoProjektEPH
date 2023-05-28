@@ -27,9 +27,8 @@ public class Gyro extends Weapon{
 
     public void draw(DrawTool drawTool){
         drawTool.setCurrentColor(new Color(203, 202, 47));
-        for (double[] g: gyros) {
-            drawTool.drawFilledCircle(g[0], g[1], radius);
-        }
+        drawTool.drawFilledCircle(x, y, radius);
+
 
     }
 
