@@ -19,6 +19,7 @@ public class Enemy extends GraphicalObject {
     private double timer;
     public boolean isDead = false;
 
+
     public Enemy(double x, double y, Player p){
         this.x = x;
         this.y = y;

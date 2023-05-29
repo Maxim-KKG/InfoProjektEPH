@@ -56,7 +56,7 @@ public abstract class Weapon extends GraphicalObject {
         while(i.hasNext()){
             Enemy e = i.next();
             if(e.getX()-x > -15 && e.getX()-x < 15 && e.getY()-y > -15 && e.getY()-y < 15){
-                e.die();
+                e.die(damage);
                 i.remove();
                 if (hasPierce){
                     ProgramController.viewController.removeDrawable(this);
