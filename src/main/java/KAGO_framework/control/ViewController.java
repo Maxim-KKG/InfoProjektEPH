@@ -227,6 +227,7 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
                 scenes.get(sceneIndex).drawables.remove(d);
                 notChangingDrawables = true;
             });
+
         }
     }
 

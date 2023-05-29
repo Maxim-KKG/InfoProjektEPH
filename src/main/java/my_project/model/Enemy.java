@@ -17,6 +17,7 @@ public class Enemy extends GraphicalObject {
     private BufferedImage image2;
     private BufferedImage currentImage;
     private double timer;
+    public boolean isDead = false;
 
     public Enemy(double x, double y, Player p){
         this.x = x;
@@ -30,10 +31,12 @@ public class Enemy extends GraphicalObject {
     }
 
     public void die(){
-        ProgramController.viewController.removeDrawable(this);
         Statics.cameraShake(200,0.1);
+        ProgramController.viewController.draw(new Explosion(x,y,10));
         if(Math.random() > 0.5) // TODO: die Wahrscheinlichkeit ist gerade festgeschrieben, aber es soll so sein, dass man die Drop-Rate steigern kann mit einem Upgrade
             ProgramController.viewController.draw(new Bread(x,y));
+        ProgramController.viewController.removeDrawable(this);
+        isDead = true;
     }
     @Override
     public void draw(DrawTool drawTool) {
