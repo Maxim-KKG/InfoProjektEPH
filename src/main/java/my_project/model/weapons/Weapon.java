@@ -13,6 +13,7 @@ import java.util.Iterator;
 public abstract class Weapon extends GraphicalObject {
     protected double degrees;
     protected Player player;
+    protected double damage;
     protected int level;
     protected boolean hasPierce = true;
     private Graphics2D g2d;

@@ -2,6 +2,7 @@ package my_project.model;
 
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
+import my_project.control.ProgramController;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,15 +10,20 @@ import java.awt.image.BufferedImage;
 public class Bread extends GraphicalObject {
 
     private BufferedImage image;
-    private double dx,dy;
-    public Bread(double x,double y) {
-        double rand = (Math.random()-0.5)*20;
-        dy = Math.cos(rand)*5;
-        dx = Math.sin(rand)*5;
+    private double dx, dy;
+    private Player player;
+
+    public Bread(double x, double y, Player player) {
+        double rand = (Math.random() - 0.5) * 20;
+        dy = Math.cos(rand) * 5;
+        dx = Math.sin(rand) * 5;
         this.x = x;
         this.y = y;
         setNewImage("src/main/resources/graphic/Bread.png");
         image = getMyImage();
+        width = image.getWidth();
+        height = image.getHeight();
+        this.player = player;
     }
 
     @Override
@@ -41,5 +47,11 @@ public class Bread extends GraphicalObject {
         if(s > -1 && s < 1)
             s = 0;
         return s;
+    }
+
+    private void checkAndHandleCollision() {
+        if (player.collidesWith(this)) {
+            ProgramController.viewController.removeDrawable(this);
+        }
     }
 }
