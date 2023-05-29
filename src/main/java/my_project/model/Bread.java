@@ -28,23 +28,24 @@ public class Bread extends GraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawImage(image,x-8.5,y-8);
+        drawTool.drawImage(image, x - 8.5, y - 8);
     }
 
     @Override
     public void update(double dt) {
         x += dx;
         y += dy;
-        dx = changeSpeed(dx,dt);
-        dy = changeSpeed(dy,dt);
+        dx = changeSpeed(dx, dt);
+        dy = changeSpeed(dy, dt);
+        checkAndHandleCollision();
     }
 
-    private double changeSpeed(double s, double dt){
-        if(s > 0)
+    private double changeSpeed(double s, double dt) {
+        if (s > 0)
             s -= dt * 10;
-        else if(s < 0)
+        else if (s < 0)
             s += dt * 10;
-        if(s > -1 && s < 1)
+        if (s > -1 && s < 1)
             s = 0;
         return s;
     }
