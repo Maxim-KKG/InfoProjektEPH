@@ -6,6 +6,8 @@ import KAGO_framework.view.DrawTool;
 import my_project.control.ProgramController;
 import KAGO_framework.view.DrawFrame;
 import KAGO_framework.view.DrawingPanel;
+import my_project.model.Background;
+import my_project.model.Bread;
 
 import javax.swing.*;
 import java.awt.*;
@@ -286,13 +288,37 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
         int dt = (int) ((elapsedTime / 1000000L));
         double dtSeconds = (double)dt/1000;
         if ( dtSeconds == 0 ) dtSeconds = 0.01;
-        Iterator<Drawable> drawIterator = scenes.get(currentScene).drawables.iterator();
+
+        ArrayList<Drawable> temporaryList = new ArrayList<>();
+        temporaryList = addToList(temporaryList, Background.class);
+        temporaryList = addToList(temporaryList, Bread.class);
+
+        Iterator<Drawable> temporaryIterator = scenes.get(currentScene).drawables.iterator();
+        while (temporaryIterator.hasNext() && notChangingDrawables){
+            Drawable currentObject = temporaryIterator.next();
+            if(currentObject.getClass() != Background.class && currentObject.getClass() != Bread.class){
+                temporaryList.add(currentObject);
+            }
+        }
+
+        Iterator<Drawable> drawIterator = temporaryList.iterator();
         while (drawIterator.hasNext() && notChangingDrawables){
             Drawable currentObject = drawIterator.next();
             currentObject.draw(drawTool);
             currentObject.update(dtSeconds);
             if (my_project.Config.useSound && soundController != null) soundController.update(dtSeconds);
         }
+    }
+
+    private ArrayList<Drawable> addToList(ArrayList<Drawable> temporaryList, Class c){
+        Iterator<Drawable> temporaryIterator = scenes.get(currentScene).drawables.iterator();
+        while (temporaryIterator.hasNext() && notChangingDrawables){
+            Drawable currentObject = temporaryIterator.next();
+            if(currentObject.getClass() == c){
+                temporaryList.add(currentObject);
+            }
+        }
+        return temporaryList;
     }
 
     /**

@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 public class Egg extends Weapon {
 
     private double degrees;
+    private double speed = 300;
     private BufferedImage pic;
     private Graphics2D g2d;
 
@@ -31,8 +32,8 @@ public class Egg extends Weapon {
     public void update(double dt){
         super.update(dt);
         checkAndHandleCollision();
-        double dx = Math.cos(degrees)*500*dt;
-        double dy = Math.sin(degrees)*500*dt;
+        double dx = Math.cos(degrees)*speed*dt;
+        double dy = Math.sin(degrees)*speed*dt;
         x += dx;
         y += dy;
 

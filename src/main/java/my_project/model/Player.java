@@ -21,9 +21,14 @@ import java.util.HashMap;
 
 public class Player extends InteractiveGraphicalObject {
 
+    // These variables can be changed as upgrades
+    private double speed = 100;
+    private double shootCooldown = 0.2;
+    private boolean rocket = false;
+    private double rocketCooldown = 5;
+    // These variables are here for functionality
     private double mouseX;
     private double mouseY;
-    private double speed = 300;
     private double degrees = 0;
     private ProgramController p;
     private boolean facingRight = true;
@@ -37,7 +42,6 @@ public class Player extends InteractiveGraphicalObject {
     private ArrayList<Class<?>> drawWeapons = new ArrayList<>();
     private double timer;
     private double rocketTimer;
-    private boolean rocket = false;
 
 
     private boolean gyro;
@@ -131,7 +135,7 @@ public class Player extends InteractiveGraphicalObject {
             usedPictureIndex = pictureIndex + 6;
         }
         shootingTimer += dt;
-        if (mouseDown && shootingTimer > 0.1) {
+        if (mouseDown && shootingTimer > shootCooldown) {
             shootingTimer = 0;
             p.spawnEgg(x, y, degrees);
         }
@@ -146,7 +150,7 @@ public class Player extends InteractiveGraphicalObject {
         if(rocket == true){
             rocketTimer += dt;
         }
-        if(rocketTimer > 5){
+        if(rocketTimer > rocketCooldown){
             p.spawnRocket(x,y,this);
             rocketTimer = 0;
         }
