@@ -189,6 +189,13 @@ public class GraphicalObject implements Drawable {
         x = x + dx;
         y = y + dy;
     }
+    protected void moveTowardsTarget(double dt, double targetX, double targetY){
+        double degree = Math.atan2(targetY - this.y, targetX - this.x);
+        double dx = Math.cos(degree)*200*dt;
+        double dy = Math.sin(degree)*200*dt;
+        x += dx;
+        y += dy;
+    }
 
     // Sondierende Methoden: "getter"
 

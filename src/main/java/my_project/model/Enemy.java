@@ -19,6 +19,9 @@ public class Enemy extends GraphicalObject {
     private double timer;
     public boolean isDead = false;
 
+    //Statics for Passives
+    public static double breadDroprate;
+
 
     public Enemy(double x, double y, Player p){
         this.x = x;

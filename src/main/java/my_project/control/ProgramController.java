@@ -41,6 +41,7 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
+        viewController.createScene();
         Statics statics = new Statics();
         viewController.draw(statics);
         Background background = new Background();
@@ -50,23 +51,8 @@ public class ProgramController {
         viewController.register(player);
         EnemySpawner enemySpawner = new EnemySpawner(player,this);
         viewController.draw(enemySpawner);
-        player.setItemSys(new ItemSys(player));
-        Button button = new Button(new ButtonHandler() {
-            @Override
-            public void processButtonClick(int code) {
-                System.out.println("Pipi");
-            }
-
-            @Override
-            public int getSceneIndex() {
-                return 0;
-            }
-
-            @Override
-            public ViewController getViewController() {
-                return viewController;
-            }
-        },0,10,10,"Heheheaw",10);
+        ItemSys itemSys = new ItemSys(player);
+        player.setItemSys(itemSys);
     }
 
     /**

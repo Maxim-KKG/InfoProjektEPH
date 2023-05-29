@@ -18,6 +18,11 @@ public abstract class Weapon extends GraphicalObject {
     protected boolean hasPierce = true;
     private Graphics2D g2d;
 
+    //Statics for Passives
+    public static double explosionRangeUp;
+    public static double damageUp;
+    public static double rangeUp;
+
     public Weapon(double x, double y,Player player){
         this.x = x;
         this.y = y;
@@ -78,14 +83,6 @@ public abstract class Weapon extends GraphicalObject {
                 }
             }
         }
-    }
-
-    protected void moveTowardsTarget(double dt, double targetX, double targetY){
-        double degree = Math.atan2(targetY - this.y, targetX - this.x);
-        double dx = Math.cos(degree)*200*dt;
-        double dy = Math.sin(degree)*200*dt;
-        x += dx;
-        y += dy;
     }
     protected Enemy randomEnemy() {
         Enemy enemy;

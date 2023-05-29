@@ -5,6 +5,7 @@ import KAGO_framework.model.InteractiveGraphicalObject;
 import KAGO_framework.view.DrawTool;
 import my_project.Config;
 import my_project.control.ProgramController;
+import my_project.model.passives.Passive;
 import my_project.model.weapons.Gyro;
 import my_project.model.weapons.Rocket;
 import my_project.model.weapons.Weapon;
@@ -26,6 +27,8 @@ public class Player extends InteractiveGraphicalObject {
     private double shootCooldown = 0.2;
     private boolean rocket = false;
     private double rocketCooldown = 5;
+    //Statics for Passives
+    public static double pickupRange = 100;
     // These variables are here for functionality
     private double mouseX;
     private double mouseY;
@@ -38,14 +41,12 @@ public class Player extends InteractiveGraphicalObject {
     private boolean mouseDown;
     private double shootingTimer = 0;
     private ArrayList<BufferedImage> images = new ArrayList<>();
-    private HashMap<Class<?>, Weapon> weapons = new HashMap<>();
-    private ArrayList<Class<?>> drawWeapons = new ArrayList<>();
+    public HashMap<Class<?>, Weapon> weapons = new HashMap<>();
+    private HashMap<Class<?>, Passive> passives = new HashMap<>();
     private double timer;
     private double rocketTimer;
     private ItemSys itemSys;
     private int bread;
-
-
     private boolean gyro;
 
     public Player(double x, double y, ProgramController p) {
@@ -65,9 +66,19 @@ public class Player extends InteractiveGraphicalObject {
             }
         } else {
             weapons.put(weapon.getClass(),weapon);
-            drawWeapons.add(weapon.getClass());
-            ProgramController.viewController.draw(weapon);
+            ProgramController.viewController.draw(weapon,0);
         }
+    }
+    public void receivePassive(Passive passive) {
+        if (passives.get(passive.getClass()) != null) {
+            if (passives.get(passive.getClass()).getLevel() < Config.UPGRADE_LIMIT) {
+                passives.get(passive.getClass()).upgrade();
+            }
+        } else {
+            passives.put(passive.getClass(),passive);
+            ProgramController.viewController.draw(passive);
+        }
+        //TODO fuse receive Methods to one
     }
 
     private void setPictures() {
@@ -90,6 +101,7 @@ public class Player extends InteractiveGraphicalObject {
     @Override
     public void draw(DrawTool drawTool) {
         drawTool.drawImage(images.get(usedPictureIndex-1),x-16,y-17);
+        drawTool.drawCircle(x,y,pickupRange);
     }
 
     /**
@@ -162,6 +174,7 @@ public class Player extends InteractiveGraphicalObject {
     }
     public void receiveBread(int amount){
         bread += amount;
+        itemSys.receiveBread(amount);
 
     }
     public void setItemSys(ItemSys itemSys){

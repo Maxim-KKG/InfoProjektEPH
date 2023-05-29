@@ -12,6 +12,8 @@ public class Bread extends GraphicalObject {
     private BufferedImage image;
     private double dx, dy;
     private Player player;
+    private int breadAmount = 1;
+
 
     public Bread(double x, double y, Player player) {
         double rand = (Math.random() - 0.5) * 20;
@@ -37,6 +39,9 @@ public class Bread extends GraphicalObject {
         y += dy;
         dx = changeSpeed(dx, dt);
         dy = changeSpeed(dy, dt);
+        if(getDistanceTo(player) < Player.pickupRange){
+            moveTowardsTarget(dt, player.getX(), player.getY());
+        }
         checkAndHandleCollision();
     }
 
@@ -52,7 +57,9 @@ public class Bread extends GraphicalObject {
 
     private void checkAndHandleCollision() {
         if (player.collidesWith(this)) {
+            player.receiveBread(breadAmount);
             ProgramController.viewController.removeDrawable(this);
         }
     }
+
 }

@@ -19,5 +19,6 @@ public class Config {
 
     //Config für Ducktato
     public final static int UPGRADE_LIMIT = 6;
+    public final static int BREAD_PER_LEVEL = 10;
 
 }
