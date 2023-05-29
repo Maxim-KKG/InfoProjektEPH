@@ -57,16 +57,6 @@ public abstract class Weapon extends GraphicalObject {
             }
         }
     }
-    protected void checkAndHandelCollision(double x, double y,double radius){
-        Iterator<Enemy> i = ProgramController.enemies.iterator();
-        while(i.hasNext()){
-            Enemy e = i.next();
-            if (e.getX() < x + radius && e.getX() + e.getWidth() > x - radius && e.getY() < y + radius && e.getY() + e.getHeight() > y - radius) {
-                e.die();
-                i.remove();
-            }
-        }
-    }
     protected void checkAndHandelCollision(GraphicalObject gO){
         Iterator<Enemy> i = ProgramController.enemies.iterator();
         while(i.hasNext()){
@@ -88,5 +78,14 @@ public abstract class Weapon extends GraphicalObject {
         double dy = Math.sin(degree)*200*dt;
         x += dx;
         y += dy;
+    }
+    protected Enemy randomEnemy() {
+        Enemy enemy;
+        try {
+            enemy = ProgramController.enemies.get((int) (Math.random() * ProgramController.enemies.size()));
+        } catch (IndexOutOfBoundsException e) {
+            enemy = null;
+        }
+        return enemy;
     }
 }

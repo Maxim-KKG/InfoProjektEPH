@@ -18,27 +18,29 @@ import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Rocket extends Weapon{
+public class Rocket extends Weapon {
     private Graphics2D g2d;
     private double explosionRadius = 100;
     private Enemy enemy;
     private ArrayList<BufferedImage> images = new ArrayList<>();
     private int currentIndex = 1;
     private double timer = 0;
+    private int enemyIndex;
+    private boolean noEnemy;
 
-    public Rocket(double x, double y, Player player) {
+    public Rocket(double x, double y, Player player, int enemyIndex) {
         super(x, y, player);
         radius = 20;
-        enemy = ProgramController.enemies.get(0);
+        enemy = randomEnemy();
         setPictures();
     }
 
-    public void draw(DrawTool drawTool){
+    public void draw(DrawTool drawTool) {
         g2d = drawTool.getGraphics2D();
         AffineTransform old = g2d.getTransform();
         drawTool.setCurrentColor(Color.CYAN);
-        g2d.rotate(degrees+Math.PI*0.5,x,y);
-        drawTool.drawImage(images.get(currentIndex-1),x-9.5,y-13);
+        g2d.rotate(degrees + Math.PI * 0.5, x, y);
+        drawTool.drawImage(images.get(currentIndex - 1), x - 9.5, y - 13);
         g2d.setTransform(old);//PAh Pah Pah
     }
 
@@ -55,43 +57,48 @@ public class Rocket extends Weapon{
             throw new RuntimeException(e);
         }
     }
-    public void update(double dt){
-        super.update(dt);
 
-        for (Enemy e : ProgramController.enemies) {
-            if (collidesWith(e) || calculateDistance(enemy.getX(), enemy.getY()) < 5) {
-                Iterator<Enemy> i = ProgramController.enemies.iterator();
-                while (i.hasNext()) {
-                    Enemy e2 = i.next();
-                    if (e2.getDistanceTo(this) < explosionRadius) {
-                        e2.die();
-                        i.remove();
+    public void update(double dt) {
+        super.update(dt);
+            for (Enemy e : ProgramController.enemies) {
+                if (collidesWith(e)) {
+                    Iterator<Enemy> i = ProgramController.enemies.iterator();
+                    while (i.hasNext()) {
+                        Enemy e2 = i.next();
+                        if (e2.getDistanceTo(this) < explosionRadius) {
+                            e2.die(damage);
+                            i.remove();
+                        }
                     }
+                    ProgramController.viewController.draw(new Explosion(x, y, explosionRadius, new Color(180, 32, 42)));
+                    ProgramController.viewController.removeDrawable(this);
+                    break;
                 }
-                ProgramController.viewController.draw(new Explosion(x,y,explosionRadius, new Color(180, 32, 42)));
-                ProgramController.viewController.removeDrawable(this);
-                break;
             }
-        }
-        if(enemy != null && !enemy.isDead) {
-            System.out.println(enemy);
+        if (enemy != null && !enemy.isDead) {
             moveTowardsTarget(dt, enemy.getX(), enemy.getY());
             degrees = Math.atan2(enemy.getY() - y, enemy.getX() - x);
-        }else{
-            enemy = ProgramController.enemies.get(0);
+        } else {
+            enemy = randomEnemy();
+            noEnemy = enemy == null;
+            double dx = Math.cos(degrees)*200*dt;
+            double dy = Math.sin(degrees)*200*dt;
+            x += dx;
+            y += dy;
         }
 
         timer += dt;
-        if(timer > 0.05){
+        if (timer > 0.05) {
             timer = 0;
-            if(currentIndex < 3){
+            if (currentIndex < 3) {
                 currentIndex += 1;
-            }else{
+            } else {
                 currentIndex = 1;
             }
         }
     }
-    public double calculateDistance(double x2,double y2){
-        return Math.sqrt( Math.pow(x-x2, 2) + Math.pow(y-y2,2));
+
+    public double calculateDistance(double x2, double y2) {
+        return Math.sqrt(Math.pow(x - x2, 2) + Math.pow(y - y2, 2));
     }
 }

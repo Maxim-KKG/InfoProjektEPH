@@ -1,8 +1,11 @@
 package my_project.control;
 
 import KAGO_framework.control.ViewController;
+import KAGO_framework.view.simple_gui.Button;
+import KAGO_framework.view.simple_gui.ButtonHandler;
 import my_project.model.*;
 import my_project.model.weapons.Egg;
+import my_project.model.weapons.Forcefield;
 import my_project.model.weapons.Gyro;
 import my_project.model.weapons.Rocket;
 
@@ -47,6 +50,23 @@ public class ProgramController {
         viewController.register(player);
         EnemySpawner enemySpawner = new EnemySpawner(player,this);
         viewController.draw(enemySpawner);
+        player.setItemSys(new ItemSys(player));
+        Button button = new Button(new ButtonHandler() {
+            @Override
+            public void processButtonClick(int code) {
+                System.out.println("Pipi");
+            }
+
+            @Override
+            public int getSceneIndex() {
+                return 0;
+            }
+
+            @Override
+            public ViewController getViewController() {
+                return viewController;
+            }
+        },0,10,10,"Heheheaw",10);
     }
 
     /**
@@ -68,8 +88,8 @@ public class ProgramController {
         viewController.draw(e);
     }
 
-    public void spawnRocket(double x, double y, Player player){
-        Rocket rocket = new Rocket(x,y,player);
+    public void spawnRocket(double x, double y, Player player,int enemyIndex){
+        Rocket rocket = new Rocket(x,y,player,enemyIndex);
         viewController.draw(rocket);
     }
 }

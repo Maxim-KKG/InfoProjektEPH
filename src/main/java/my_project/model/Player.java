@@ -42,6 +42,8 @@ public class Player extends InteractiveGraphicalObject {
     private ArrayList<Class<?>> drawWeapons = new ArrayList<>();
     private double timer;
     private double rocketTimer;
+    private ItemSys itemSys;
+    private int bread;
 
 
     private boolean gyro;
@@ -141,8 +143,11 @@ public class Player extends InteractiveGraphicalObject {
         }
         timer += dt;
         if (ViewController.isKeyDown(KeyEvent.VK_SPACE) && timer > 1){
+            if (itemSys != null){
+                itemSys.newRandomWeapon();
+                itemSys.chooseSelectedWeapon();
+            }
             timer = 0;
-            receiveWeapon(new Gyro(x,y,this));
         }
         if(ViewController.isKeyDown(KeyEvent.VK_G)){
             rocket = true;
@@ -151,11 +156,17 @@ public class Player extends InteractiveGraphicalObject {
             rocketTimer += dt;
         }
         if(rocketTimer > rocketCooldown){
-            p.spawnRocket(x,y,this);
+            p.spawnRocket(x,y,this,1);
             rocketTimer = 0;
         }
     }
+    public void receiveBread(int amount){
+        bread += amount;
 
+    }
+    public void setItemSys(ItemSys itemSys){
+        this.itemSys = itemSys;
+    }
     @Override
     public void mouseMoved(MouseEvent e) {
         mouseX = e.getX();
@@ -179,6 +190,8 @@ public class Player extends InteractiveGraphicalObject {
     public void mouseReleased(MouseEvent e) {
         mouseDown = false;
     }
-
+    public ProgramController getProgrammController(){
+        return p;
+    }
 
 }
