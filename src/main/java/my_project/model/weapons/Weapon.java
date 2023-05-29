@@ -13,14 +13,22 @@ import java.util.Iterator;
 public abstract class Weapon extends GraphicalObject {
     protected double degrees;
     protected Player player;
-    protected double damage;
+    protected int damage = 1;
     protected int level;
     protected boolean hasPierce = true;
     private Graphics2D g2d;
+
     public Weapon(double x, double y,Player player){
         this.x = x;
         this.y = y;
         this.player = player;
+    }
+
+    public Weapon(double x, double y,Player player, int damage){
+        this.x = x;
+        this.y = y;
+        this.player = player;
+        this.damage = damage;
     }
 
     public void update(double dt){
@@ -62,7 +70,7 @@ public abstract class Weapon extends GraphicalObject {
         while(i.hasNext()){
             Enemy e = i.next();
             if (e.collidesWith(gO)) {
-                e.die();
+                e.die(damage);
                 i.remove();
                 if (hasPierce){
                     ProgramController.viewController.removeDrawable(this);

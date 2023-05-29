@@ -18,11 +18,11 @@ public class EnemySpawner extends GraphicalObject {
     public void update(double dt) {
 
         timer += dt;
-        if(timer > 0.5){
+        if(timer > 0.1){
             timer = 0;
             double degrees = Math.random()*360;
-            double xPos = Math.cos(degrees)*360 + 300;
-            double yPos = Math.sin(degrees)*360 + 300;
+            double xPos = Math.cos(degrees)*460 + 400;
+            double yPos = Math.sin(degrees)*460 + 400;
             programController.spawnEnemy(xPos,yPos,p);
         }
 

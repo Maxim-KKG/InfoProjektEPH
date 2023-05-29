@@ -30,14 +30,23 @@ public class Enemy extends GraphicalObject {
         currentImage = image1;
     }
 
-    public void die(){
-        Statics.cameraShake(200,0.1);
+    public void die(int damage){
         ProgramController.viewController.draw(new Explosion(x,y,10));
         if(Math.random() > 0.5) // TODO: die Wahrscheinlichkeit ist gerade festgeschrieben, aber es soll so sein, dass man die Drop-Rate steigern kann mit einem Upgrade
             ProgramController.viewController.draw(new Bread(x,y,p));
         ProgramController.viewController.removeDrawable(this);
         isDead = true;
     }
+
+    public void die(int damage, double camShakeStrength, double camShakeAmount){
+        Statics.cameraShake(camShakeStrength,camShakeAmount);
+        ProgramController.viewController.draw(new Explosion(x,y,10));
+        if(Math.random() > 0.5) // TODO: die Wahrscheinlichkeit ist gerade festgeschrieben, aber es soll so sein, dass man die Drop-Rate steigern kann mit einem Upgrade
+            ProgramController.viewController.draw(new Bread(x,y,p));
+        ProgramController.viewController.removeDrawable(this);
+        isDead = true;
+    }
+
     @Override
     public void draw(DrawTool drawTool) {
         degrees = Math.atan2(p.getY()-y,p.getX()-x);
