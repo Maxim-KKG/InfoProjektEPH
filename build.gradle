@@ -43,3 +43,5 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+sourceCompatibility = JavaVersion.VERSION_17_PREVIEW
+targetCompatibility = JavaVersion.VERSION_17_PREVIEW

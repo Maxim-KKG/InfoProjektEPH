@@ -161,7 +161,8 @@ public class Player extends InteractiveGraphicalObject {
     }
     public void receiveBread(int amount){
         bread += amount;
-        itemSys.receiveBread(amount);
+        if(itemSys.receiveBread(amount))
+            mouseDown = false;
     }
 
     public void setItemSys(ItemSys itemSys){

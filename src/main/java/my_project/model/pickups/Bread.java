@@ -1,8 +1,9 @@
-package my_project.model;
+package my_project.model.pickups;
 
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
 import my_project.control.ProgramController;
+import my_project.model.Player;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

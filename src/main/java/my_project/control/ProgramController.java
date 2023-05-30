@@ -78,20 +78,22 @@ public class ProgramController {
     }
 
     public void spawnEnemy(double x, double y, Player p,int type){
-        if(type == 1){
-            Fly f = new Fly(x,y,p);
-            enemies.add(f);
-            viewController.draw(f);
-        }
-        if(type == 2){
-            Wasp w = new Wasp(x,y,p);
-            enemies.add(w);
-            viewController.draw(w);
-        }
-        if(type == 3){
-            Spider s = new Spider(x,y,p);
-            enemies.add(s);
-            viewController.draw(s);
+        switch (type){
+            case 1:
+                Fly f = new Fly(x,y,p);
+                enemies.add(f);
+                viewController.draw(f);
+                break;
+            case 2:
+                Wasp w = new Wasp(x,y,p);
+                enemies.add(w);
+                viewController.draw(w);
+                break;
+            case 3:
+                Spider s = new Spider(x,y,p);
+                enemies.add(s);
+                viewController.draw(s);
+                break;
         }
     }
 

@@ -1,11 +1,7 @@
 package my_project.model.enemies;
 
 import KAGO_framework.view.DrawTool;
-import my_project.control.ProgramController;
-import my_project.model.Bread;
-import my_project.model.Explosion;
 import my_project.model.Player;
-import my_project.model.Statics;
 
 import java.awt.image.BufferedImage;
 

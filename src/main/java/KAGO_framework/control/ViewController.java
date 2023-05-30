@@ -7,7 +7,7 @@ import my_project.control.ProgramController;
 import KAGO_framework.view.DrawFrame;
 import KAGO_framework.view.DrawingPanel;
 import my_project.model.Background;
-import my_project.model.Bread;
+import my_project.model.pickups.Bread;
 
 import javax.swing.*;
 import java.awt.*;

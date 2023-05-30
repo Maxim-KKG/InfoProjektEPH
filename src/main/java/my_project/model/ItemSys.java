@@ -93,15 +93,17 @@ public class ItemSys {
     public void chooseSelectedPlayerUpgrade(){
         //TODO Implement player Upgrades
     }
-    public void receiveBread(int amount){
+    public boolean receiveBread(int amount){
         bread += amount;
         if (levelIndex > Config.BREAD_PER_LEVEL.length-1)
-            return;
+            return false;
         if (bread > Config.BREAD_PER_LEVEL[levelIndex]){
             bread -= Config.BREAD_PER_LEVEL[levelIndex];
             levelIndex += 1;
             levelUp();
+            return true;
         }
+        return false;
     }
     public void levelUp(){
         new UpgradeWindow(this);

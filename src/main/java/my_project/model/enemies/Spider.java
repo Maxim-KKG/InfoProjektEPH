@@ -13,11 +13,9 @@ public class Spider extends Enemy{
         super(x, y, p);
         programController = p.getProgrammController();
         health = 10;
-        bread = false;
-        honeycomb = true;
         speed = 100;
         radius = 10;
-
+        dropRarity = 1;
     }
     public void draw(DrawTool drawTool){
         drawTool.setCurrentColor(Color.GRAY);
@@ -25,7 +23,8 @@ public class Spider extends Enemy{
     }
     public void update(double dt){
         super.update(dt);
-        moveTowardsPlayer(dt);
+        if(timer < 2.5)
+            moveTowardsPlayer(dt);
         timer += dt;
         if(timer > 3){
             timer = 0;
