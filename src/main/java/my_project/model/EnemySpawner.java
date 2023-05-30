@@ -18,7 +18,7 @@ public class EnemySpawner extends GraphicalObject {
     public void update(double dt) {
 
         timer += dt;
-        if(timer > 0.1){
+        if(timer > 0.3){
             timer = 0;
             double degrees = Math.random()*360;
             double xPos = Math.cos(degrees)*460 + 400;
