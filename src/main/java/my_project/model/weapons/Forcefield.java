@@ -18,6 +18,7 @@ public class Forcefield extends Weapon{
         super(x,y,player);
         radius = 50;
         hasPierce = false;
+        damage = 1;
     }
 
     public void draw(DrawTool drawTool){

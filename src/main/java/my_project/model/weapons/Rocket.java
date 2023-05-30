@@ -31,6 +31,7 @@ public class Rocket extends Weapon {
         radius = 20;
         enemy = randomEnemy();
         setPictures();
+        damage = 5;
     }
 
     public void draw(DrawTool drawTool) {

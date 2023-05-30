@@ -26,6 +26,7 @@ public class Fly extends Enemy{
         setNewImage("src/main/resources/graphic/fly/Fly2.png");
         image2 = getMyImage();
         currentImage = image1;
+        health = 4;
     }
 
 
