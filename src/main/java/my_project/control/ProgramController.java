@@ -71,9 +71,9 @@ public class ProgramController {
     }
 
     public void spawnEnemy(double x, double y, Player p){
-        Enemy e = new Enemy(x,y,p);
-        enemies.add(e);
-        viewController.draw(e);
+        Fly f = new Fly(x,y,p);
+        enemies.add(f);
+        viewController.draw(f);
     }
 
     public void spawnRocket(double x, double y, Player player,int enemyIndex){
