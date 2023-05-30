@@ -10,13 +10,11 @@ public class UpgradeWindow {
         new UpgradeButton(0, 300, "Passive", itemSys, this),
         new UpgradeButton(0, 600, "PlayerUpgrade", itemSys, this)
         };
-
     }
     public void destroy(){
         for (UpgradeButton b : upgradeButtons) {
             b.removeButton();
         }
         ProgramController.viewController.showScene(0);
-
     }
 }

@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 public class ItemSys {
     private Player player;
+    private int levelIndex = 0;
     private int bread;
     private HashMap<String,String[]> types = new HashMap<>();
     private HashMap<String,String> selections = new HashMap<>();
@@ -94,8 +95,11 @@ public class ItemSys {
     }
     public void receiveBread(int amount){
         bread += amount;
-        if (bread > Config.BREAD_PER_LEVEL){
-            bread -= Config.BREAD_PER_LEVEL;
+        if (levelIndex > Config.BREAD_PER_LEVEL.length-1)
+            return;
+        if (bread > Config.BREAD_PER_LEVEL[levelIndex]){
+            bread -= Config.BREAD_PER_LEVEL[levelIndex];
+            levelIndex += 1;
             levelUp();
         }
     }

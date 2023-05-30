@@ -23,13 +23,14 @@ import java.util.HashMap;
 public class Player extends InteractiveGraphicalObject {
 
     // These variables can be changed as upgrades
-    private double speed = 100;
+    private double speed = 150;
     private double shootCooldown = 0.2;
     private boolean rocket = false;
     private double rocketCooldown = 5;
     //Statics for Passives
     public static double pickupRange = 100;
     // These variables are here for functionality
+    private double timer = 0;
     private double mouseX;
     private double mouseY;
     private double degrees = 0;
@@ -43,7 +44,6 @@ public class Player extends InteractiveGraphicalObject {
     private ArrayList<BufferedImage> images = new ArrayList<>();
     public HashMap<Class<?>, Weapon> weapons = new HashMap<>();
     private HashMap<Class<?>, Passive> passives = new HashMap<>();
-    private double timer;
     private double rocketTimer;
     private ItemSys itemSys;
     private int bread;
@@ -100,8 +100,9 @@ public class Player extends InteractiveGraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
+        drawTool.setCurrentColor(156,219,67,(int)Math.abs(Math.sin(timer)*20));
+        drawTool.drawFilledCircle(x,y,pickupRange);
         drawTool.drawImage(images.get(usedPictureIndex-1),x-16,y-17);
-        drawTool.drawCircle(x,y,pickupRange);
     }
 
     /**
@@ -111,22 +112,26 @@ public class Player extends InteractiveGraphicalObject {
      */
     @Override
     public void update(double dt) {
+        timer += dt;
         degrees = Math.atan2(mouseY - y, mouseX - x);
         boolean movedX = true;
         boolean movedY = true;
+        double currentSpeed = speed;
+        if(shootingTimer < shootCooldown)
+            currentSpeed /= 2;
         if (ViewController.isKeyDown(65)) {
             facingRight = false;
-            x -= speed * dt;
+            x -= currentSpeed * dt;
         } else if (ViewController.isKeyDown(68)) {
             facingRight = true;
-            x += speed * dt;
+            x += currentSpeed * dt;
         } else {
             movedX = false;
         }
         if (ViewController.isKeyDown(87)) {
-            y -= speed * dt;
+            y -= currentSpeed * dt;
         } else if (ViewController.isKeyDown(83)) {
-            y += speed * dt;
+            y += currentSpeed * dt;
         } else {
             movedY = false;
         }
@@ -153,30 +158,12 @@ public class Player extends InteractiveGraphicalObject {
             shootingTimer = 0;
             p.spawnEgg(x, y, degrees);
         }
-        timer += dt;
-        if (ViewController.isKeyDown(KeyEvent.VK_SPACE) && timer > 1){
-            if (itemSys != null){
-                itemSys.newRandomWeapon();
-                itemSys.chooseSelectedWeapon();
-            }
-            timer = 0;
-        }
-        if(ViewController.isKeyDown(KeyEvent.VK_G)){
-            rocket = true;
-        }
-        if(rocket == true){
-            rocketTimer += dt;
-        }
-        if(rocketTimer > rocketCooldown){
-            p.spawnRocket(x,y,this,1);
-            rocketTimer = 0;
-        }
     }
     public void receiveBread(int amount){
         bread += amount;
         itemSys.receiveBread(amount);
-
     }
+
     public void setItemSys(ItemSys itemSys){
         this.itemSys = itemSys;
     }

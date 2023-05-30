@@ -1,12 +1,11 @@
 package my_project.model.weapons;
 
-import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
-import my_project.Config;
 import my_project.control.ProgramController;
-import my_project.model.Enemy;
 import my_project.model.Explosion;
 import my_project.model.Player;
+import my_project.model.Statics;
+import my_project.model.enemies.Enemy;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,7 +13,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -33,6 +31,7 @@ public class Rocket extends Weapon {
         radius = 20;
         enemy = randomEnemy();
         setPictures();
+        damage = 5;
     }
 
     public void draw(DrawTool drawTool) {
@@ -66,12 +65,13 @@ public class Rocket extends Weapon {
                     while (i.hasNext()) {
                         Enemy e2 = i.next();
                         if (e2.getDistanceTo(this) < explosionRadius) {
-                            e2.die(damage);
+                            e2.die(damage,this);
                             i.remove();
                         }
                     }
-                    ProgramController.viewController.draw(new Explosion(x, y, explosionRadius, new Color(180, 32, 42)));
+                    ProgramController.viewController.draw(new Explosion(x, y, explosionRadius, new Color(180, 32, 42),2));
                     ProgramController.viewController.removeDrawable(this);
+                    Statics.cameraShake(100,0.5);
                     break;
                 }
             }

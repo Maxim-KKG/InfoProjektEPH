@@ -8,6 +8,7 @@ public class EnemySpawner extends GraphicalObject {
     private Player p;
     private ProgramController programController;
     private double timer = 0;
+    private double spawnRadius = 600;
 
     public EnemySpawner(Player p, ProgramController programController){
         this.p = p;
@@ -18,14 +19,20 @@ public class EnemySpawner extends GraphicalObject {
     public void update(double dt) {
 
         timer += dt;
-        if(timer > 0.1){
+        if(timer % 0.3 <0.01 && timer % 0.3 > -0.01){
+            //timer = 0;
+            double degrees = Math.random()*360;
+            double xPos = Math.cos(degrees)*spawnRadius + 400;
+            double yPos = Math.sin(degrees)*spawnRadius + 400;
+            programController.spawnEnemy(xPos,yPos,p,1);
+        }
+        if(timer > 3){
             timer = 0;
             double degrees = Math.random()*360;
-            double xPos = Math.cos(degrees)*460 + 400;
-            double yPos = Math.sin(degrees)*460 + 400;
-            programController.spawnEnemy(xPos,yPos,p);
+            double xPos = Math.cos(degrees)*spawnRadius + 400;
+            double yPos = Math.sin(degrees)*spawnRadius + 400;
+            programController.spawnEnemy(xPos,yPos,p,2);
         }
-
 
     }
 }

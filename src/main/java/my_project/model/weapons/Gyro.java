@@ -16,6 +16,7 @@ public class Gyro extends Weapon {
         hasPierce = false;
         this.radius = 25;
         upgrade();
+        damage = 2;
     }
 
     public void draw(DrawTool drawTool) {

@@ -1,5 +1,7 @@
 package my_project;
 
+import java.sql.Array;
+
 /**
  * In dieser Klasse werden globale, statische Einstellungen verwaltet.
  * Die Werte können nach eigenen Wünschen angepasst werden.
@@ -19,6 +21,6 @@ public class Config {
 
     //Config für Ducktato
     public final static int UPGRADE_LIMIT = 6;
-    public final static int BREAD_PER_LEVEL = 10;
+    public final static int[] BREAD_PER_LEVEL = {10,30,60,100,150};
 
 }

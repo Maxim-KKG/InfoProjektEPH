@@ -3,8 +3,11 @@ package my_project.control;
 import KAGO_framework.control.ViewController;
 import KAGO_framework.view.simple_gui.Button;
 import KAGO_framework.view.simple_gui.ButtonHandler;
-import my_project.model.*;
+import my_project.model.enemies.Enemy;
+import my_project.model.enemies.Fly;
+import my_project.model.enemies.Wasp;
 import my_project.model.weapons.Egg;
+import my_project.model.*;
 import my_project.model.weapons.Forcefield;
 import my_project.model.weapons.Gyro;
 import my_project.model.weapons.Rocket;
@@ -68,10 +71,17 @@ public class ProgramController {
         viewController.draw(e);
     }
 
-    public void spawnEnemy(double x, double y, Player p){
-        Enemy e = new Enemy(x,y,p);
-        enemies.add(e);
-        viewController.draw(e);
+    public void spawnEnemy(double x, double y, Player p,int type){
+        if(type == 1){
+            Fly f = new Fly(x,y,p);
+            enemies.add(f);
+            viewController.draw(f);
+        }
+        if(type == 2){
+            Wasp w = new Wasp(x,y,p);
+            enemies.add(w);
+            viewController.draw(w);
+        }
     }
 
     public void spawnRocket(double x, double y, Player player,int enemyIndex){

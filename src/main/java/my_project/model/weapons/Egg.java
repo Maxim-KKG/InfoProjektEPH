@@ -20,6 +20,7 @@ public class Egg extends Weapon {
         this.degrees = degrees;
         setNewImage("src/main/resources/graphic/bullets/Egg.png");
         pic = getMyImage();
+        damage = 2;
     }
 
     public void draw(DrawTool drawTool){
@@ -31,7 +32,7 @@ public class Egg extends Weapon {
     }
     public void update(double dt){
         super.update(dt);
-        checkAndHandleCollision();
+        checkAndHandleCollision(100,0.2);
         double dx = Math.cos(degrees)*speed*dt;
         double dy = Math.sin(degrees)*speed*dt;
         x += dx;
