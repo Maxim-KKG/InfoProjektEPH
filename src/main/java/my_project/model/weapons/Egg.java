@@ -20,7 +20,7 @@ public class Egg extends Weapon {
         this.degrees = degrees;
         setNewImage("src/main/resources/graphic/bullets/Egg.png");
         pic = getMyImage();
-        damage = 1;
+        damage = 2;
     }
 
     public void draw(DrawTool drawTool){

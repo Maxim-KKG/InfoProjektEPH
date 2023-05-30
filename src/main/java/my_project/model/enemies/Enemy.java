@@ -50,6 +50,34 @@ public abstract class Enemy extends GraphicalObject{
         isDead = true;
     }
 
+    protected void moveTowardsPlayer(double dt){
+        degrees = Math.atan2(p.getY()-y,p.getX()-x);
+        double dx = Math.cos(degrees)*speed*dt;
+        double dy = Math.sin(degrees)*speed*dt;
+        x += dx;
+        y += dy;
+    }
+
+    @Override
+    public void update(double dt) {
+        if(Math.abs(knockbackX) > 1 || Math.abs(knockbackY) > 1){
+            if(knockbackY > 0){
+                y += knockbackY;
+                knockbackY -= dt * 10;
+            }else{
+                y += knockbackY;
+                knockbackY += dt * 10;
+            }
+            if(knockbackX > 0){
+                x += knockbackX;
+                knockbackX -= dt * 10;
+            }else{
+                x += knockbackX;
+                knockbackX += dt * 10;
+            }
+        }
+    }
+
     @Override
     public void update(double dt) {
         if(Math.abs(knockbackX) > 1 || Math.abs(knockbackY) > 1){

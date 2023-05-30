@@ -36,11 +36,7 @@ public class Fly extends Enemy{
 
     public void update(double dt) {
         super.update(dt);
-        degrees = Math.atan2(p.getY()-y,p.getX()-x);
-        double dx = Math.cos(degrees)*speed*dt;
-        double dy = Math.sin(degrees)*speed*dt;
-        x += dx;
-        y += dy;
+        moveTowardsPlayer(dt);
         timer += dt;
         if(timer > 0.1){
             if(currentImage == image1){
