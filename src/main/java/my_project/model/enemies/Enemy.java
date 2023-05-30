@@ -7,6 +7,7 @@ import my_project.model.Bread;
 import my_project.model.Explosion;
 import my_project.model.Player;
 import my_project.model.Statics;
+import my_project.model.weapons.Weapon;
 
 public abstract class Enemy extends GraphicalObject{
 
@@ -22,8 +23,12 @@ public abstract class Enemy extends GraphicalObject{
         this.p = p;
     }
 
-    public void die(int damage){
-        die(damage,0,0);
+    public void die(Weapon w){
+        die(1,w);
+    }
+
+    public void die(int damage, Weapon w){
+        die(damage,0,0,w);
     }
 
     public void die(int damage, double camShakeStrength, double camShakeAmount, Weapon w){
@@ -35,7 +40,7 @@ public abstract class Enemy extends GraphicalObject{
         }
         Statics.cameraShake(camShakeStrength,camShakeAmount);
         ProgramController.viewController.draw(new Explosion(x,y,10));
-        if(Math.random() > breadDroprate)
+        if(Math.random() < breadDroprate)
             ProgramController.viewController.draw(new Bread(x,y,p));
         ProgramController.viewController.removeDrawable(this);
         isDead = true;

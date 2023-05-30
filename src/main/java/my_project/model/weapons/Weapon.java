@@ -66,8 +66,9 @@ public abstract class Weapon extends GraphicalObject {
             Enemy e = i.next();
             if(e.getX()-x > -15 && e.getX()-x < 15 && e.getY()-y > -15 && e.getY()-y < 15){
                 Statics.cameraShake(camShakeAmount,camShakeDuration);
-                e.die(damage);
-                i.remove();
+                e.die(damage,this);
+                if(e.isDead)
+                    i.remove();
                 if (hasPierce){
                     ProgramController.viewController.removeDrawable(this);
                     break;
@@ -82,8 +83,9 @@ public abstract class Weapon extends GraphicalObject {
             Enemy e = i.next();
             if(calculateDistance(e.getX(),e.getY()) < collisionRadius){
                 Statics.cameraShake(camShakeAmount,camShakeDuration);
-                e.die(damage);
-                i.remove();
+                e.die(damage,this);
+                if(e.isDead)
+                    i.remove();
                 if (hasPierce){
                     ProgramController.viewController.removeDrawable(this);
                     break;
@@ -97,8 +99,9 @@ public abstract class Weapon extends GraphicalObject {
         while(i.hasNext()){
             Enemy e = i.next();
             if (e.collidesWith(gO)) {
-                e.die(damage);
-                i.remove();
+                e.die(damage,this);
+                if(e.isDead)
+                    i.remove();
                 if (hasPierce){
                     ProgramController.viewController.removeDrawable(this);
                     break;

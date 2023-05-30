@@ -65,7 +65,7 @@ public class Rocket extends Weapon {
                     while (i.hasNext()) {
                         Enemy e2 = i.next();
                         if (e2.getDistanceTo(this) < explosionRadius) {
-                            e2.die(damage);
+                            e2.die(damage,this);
                             i.remove();
                         }
                     }
