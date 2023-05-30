@@ -11,8 +11,6 @@ import java.awt.image.BufferedImage;
 
 public class Fly extends Enemy{
 
-    private double speed = 100;
-    private double degrees = 0;
     private BufferedImage image1;
     private BufferedImage image2;
     private BufferedImage currentImage;
@@ -26,6 +24,8 @@ public class Fly extends Enemy{
         setNewImage("src/main/resources/graphic/fly/Fly2.png");
         image2 = getMyImage();
         currentImage = image1;
+        speed = 100;
+        health = 2;
     }
 
 

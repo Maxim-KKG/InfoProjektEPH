@@ -19,6 +19,9 @@ public abstract class Enemy extends GraphicalObject{
     protected double knockbackY;
     protected double knockbackStrength = 5;
 
+    protected double degrees;
+    protected double speed = 100;
+
 
     public Enemy(double x, double y, Player p){
         this.x = x;
@@ -56,26 +59,6 @@ public abstract class Enemy extends GraphicalObject{
         double dy = Math.sin(degrees)*speed*dt;
         x += dx;
         y += dy;
-    }
-
-    @Override
-    public void update(double dt) {
-        if(Math.abs(knockbackX) > 1 || Math.abs(knockbackY) > 1){
-            if(knockbackY > 0){
-                y += knockbackY;
-                knockbackY -= dt * 10;
-            }else{
-                y += knockbackY;
-                knockbackY += dt * 10;
-            }
-            if(knockbackX > 0){
-                x += knockbackX;
-                knockbackX -= dt * 10;
-            }else{
-                x += knockbackX;
-                knockbackX += dt * 10;
-            }
-        }
     }
 
     @Override

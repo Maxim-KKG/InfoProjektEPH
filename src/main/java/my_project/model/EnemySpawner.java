@@ -8,6 +8,7 @@ public class EnemySpawner extends GraphicalObject {
     private Player p;
     private ProgramController programController;
     private double timer = 0;
+    private double spawnRadius = 600;
 
     public EnemySpawner(Player p, ProgramController programController){
         this.p = p;
