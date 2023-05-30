@@ -26,7 +26,6 @@ public class Fly extends Enemy{
         setNewImage("src/main/resources/graphic/fly/Fly2.png");
         image2 = getMyImage();
         currentImage = image1;
-        health = 4;
     }
 
 
@@ -36,6 +35,7 @@ public class Fly extends Enemy{
 
 
     public void update(double dt) {
+        super.update(dt);
         degrees = Math.atan2(p.getY()-y,p.getX()-x);
         double dx = Math.cos(degrees)*speed*dt;
         double dy = Math.sin(degrees)*speed*dt;
