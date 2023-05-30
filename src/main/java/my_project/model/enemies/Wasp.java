@@ -10,6 +10,9 @@ public class Wasp extends Enemy{
         super(x, y, p);
         radius = 10;
         health = 5;
+        bread = false;
+        honeycomb = true;
+        programController = p.getProgrammController();
     }
 
     public void draw(DrawTool drawTool){

@@ -1,15 +1,11 @@
 package my_project.control;
 
 import KAGO_framework.control.ViewController;
-import KAGO_framework.view.simple_gui.Button;
-import KAGO_framework.view.simple_gui.ButtonHandler;
 import my_project.model.enemies.Enemy;
 import my_project.model.enemies.Fly;
 import my_project.model.enemies.Wasp;
 import my_project.model.weapons.Egg;
 import my_project.model.*;
-import my_project.model.weapons.Forcefield;
-import my_project.model.weapons.Gyro;
 import my_project.model.weapons.Rocket;
 
 import java.util.ArrayList;
@@ -26,6 +22,8 @@ public class ProgramController {
     // Referenzen
     public static ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
     public static ArrayList<Enemy> enemies = new ArrayList<>();
+    public double startTime;
+    public double timer;
     //public static ArrayList<Egg> eggs = new ArrayList<>();
 
     /**
@@ -56,6 +54,7 @@ public class ProgramController {
         viewController.draw(enemySpawner);
         ItemSys itemSys = new ItemSys(player);
         player.setItemSys(itemSys);
+        startTime = System.currentTimeMillis();
     }
 
     /**
@@ -63,6 +62,11 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
+        timer += dt;
+        if ((int)timer > 300){
+            System.out.println("5min");
+            timer = 0;
+        }
 
     }
 

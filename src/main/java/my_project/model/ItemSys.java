@@ -19,7 +19,7 @@ public class ItemSys {
     private String[] weaponTypes =  {"RocketLauncher","Gyro","Forcefield"};
     private String selectedWeapon;
     //Passives
-    private String[] passiveTypes = {"PickupRange"};
+    private String[] passiveTypes = {"PickupRange","BreadDroprate"};
     private String selectedPassive;
     //Player
     private String[] playerUpgradeTypes = {"HEhehehaw"};
@@ -29,7 +29,7 @@ public class ItemSys {
         this.player = player;
 
         types.put("Weapon", new String[]{"RocketLauncher", "Gyro", "Forcefield"});
-        types.put("Passive", new String[]{"PickupRange"});
+        types.put("Passive", new String[]{"PickupRange","BreadDroprate"});
         types.put("PlayerUpgrades", new String[]{"HEhehehaw"});
 
     }

@@ -26,6 +26,7 @@ public class Fly extends Enemy{
         currentImage = image1;
         speed = 100;
         health = 2;
+        programController = p.getProgrammController();
     }
 
 

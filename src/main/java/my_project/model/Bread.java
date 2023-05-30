@@ -12,7 +12,7 @@ public class Bread extends GraphicalObject {
     private BufferedImage image;
     private double dx, dy;
     private Player player;
-    private int breadAmount = 1;
+    protected int breadAmount = 1;
 
 
     public Bread(double x, double y, Player player) {

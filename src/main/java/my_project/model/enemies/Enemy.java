@@ -3,10 +3,7 @@ package my_project.model.enemies;
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
 import my_project.control.ProgramController;
-import my_project.model.Bread;
-import my_project.model.Explosion;
-import my_project.model.Player;
-import my_project.model.Statics;
+import my_project.model.*;
 import my_project.model.weapons.Weapon;
 
 public abstract class Enemy extends GraphicalObject{
@@ -22,6 +19,9 @@ public abstract class Enemy extends GraphicalObject{
     protected double degrees;
     protected double speed = 100;
 
+    protected boolean bread = true;
+    protected boolean honeycomb;
+    protected ProgramController programController;
 
     public Enemy(double x, double y, Player p){
         this.x = x;
@@ -47,8 +47,14 @@ public abstract class Enemy extends GraphicalObject{
         }
         Statics.cameraShake(camShakeStrength,camShakeAmount);
         ProgramController.viewController.draw(new Explosion(x,y,10));
-        if(Math.random() < breadDroprate)
-            ProgramController.viewController.draw(new Bread(x,y,p));
+        if(Math.random() < breadDroprate){
+            if(bread == true) {
+                ProgramController.viewController.draw(new Bread(x, y, p));
+            } else if (honeycomb == true) {
+                ProgramController.viewController.draw(new Honeycomb(x, y, p));
+            }
+
+        }
         ProgramController.viewController.removeDrawable(this);
         isDead = true;
     }
