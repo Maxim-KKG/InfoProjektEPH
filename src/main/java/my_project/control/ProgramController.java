@@ -4,6 +4,8 @@ import KAGO_framework.control.ViewController;
 import my_project.model.enemies.Enemy;
 import my_project.model.enemies.Fly;
 import my_project.model.enemies.Wasp;
+import my_project.model.enemies.Spider;
+import my_project.model.enemies.spiders.Web;
 import my_project.model.weapons.Egg;
 import my_project.model.*;
 import my_project.model.weapons.Rocket;
@@ -86,10 +88,19 @@ public class ProgramController {
             enemies.add(w);
             viewController.draw(w);
         }
+        if(type == 3){
+            Spider s = new Spider(x,y,p);
+            enemies.add(s);
+            viewController.draw(s);
+        }
     }
 
     public void spawnRocket(double x, double y, Player player,int enemyIndex){
         Rocket rocket = new Rocket(x,y,player,enemyIndex);
         viewController.draw(rocket);
+    }
+    public void shootNet(double x, double y, Player player){
+        Web net = new Web(x,y,player);
+        viewController.draw(net);
     }
 }

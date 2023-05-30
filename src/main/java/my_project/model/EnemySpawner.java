@@ -19,20 +19,51 @@ public class EnemySpawner extends GraphicalObject {
     public void update(double dt) {
 
         timer += dt;
-        if(timer % 0.3 <0.01 && timer % 0.3 > -0.01){
-            //timer = 0;
-            double degrees = Math.random()*360;
-            double xPos = Math.cos(degrees)*spawnRadius + 400;
-            double yPos = Math.sin(degrees)*spawnRadius + 400;
-            programController.spawnEnemy(xPos,yPos,p,1);
-        }
-        if(timer > 3){
-            timer = 0;
-            double degrees = Math.random()*360;
-            double xPos = Math.cos(degrees)*spawnRadius + 400;
-            double yPos = Math.sin(degrees)*spawnRadius + 400;
-            programController.spawnEnemy(xPos,yPos,p,2);
+        if(timer < 120){
+            if(timer % 0.3 <0.01 && timer % 0.3 > -0.01){
+                //timer = 0;
+                spawnFly();
+            }
+            if(timer % 3 < 0.01 && timer % 3 > -0.01){
+                //timer = 0;
+                spawnWasp();
+            }
+        } else if(timer < 240){
+            if(timer % 0.3 < 0.01 && timer % 0.3 > -0.01){
+                //timer = 0;
+                spawnWasp();
+            }
+            if(timer % 3 < 0.01 && timer % 3 > -0.01){
+                //timer = 0;
+                spawnSpider();
+            }
+        } else if(timer < 360){
+            if(timer % 0.1 < 0.01 && timer % 0.1 > -0.01){
+                //timer = 0;
+                spawnSpider();
+            }
         }
 
+
+
+    }
+
+    private void spawnFly(){
+        double degrees = Math.random()*360;
+        double xPos = Math.cos(degrees)*spawnRadius + 400;
+        double yPos = Math.sin(degrees)*spawnRadius + 400;
+        programController.spawnEnemy(xPos,yPos,p,1);
+    }
+    private void spawnWasp(){
+        double degrees = Math.random()*360;
+        double xPos = Math.cos(degrees)*spawnRadius + 400;
+        double yPos = Math.sin(degrees)*spawnRadius + 400;
+        programController.spawnEnemy(xPos,yPos,p,2);
+    }
+    private void spawnSpider(){
+        double degrees = Math.random()*360;
+        double xPos = Math.cos(degrees)*spawnRadius + 400;
+        double yPos = Math.sin(degrees)*spawnRadius + 400;
+        programController.spawnEnemy(xPos,yPos,p,3);
     }
 }

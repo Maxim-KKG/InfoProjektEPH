@@ -27,6 +27,7 @@ public abstract class Enemy extends GraphicalObject{
         this.x = x;
         this.y = y;
         this.p = p;
+
     }
 
     public void die(Weapon w){
