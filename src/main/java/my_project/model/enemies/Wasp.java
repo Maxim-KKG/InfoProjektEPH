@@ -25,6 +25,8 @@ public class Wasp extends Enemy{
         dropRarity = 1;
         programController = p.getProgrammController();
         setPictures();
+        damage = 3;
+        damageTimer = 0;
     }
 
     public void draw(DrawTool drawTool){
@@ -47,6 +49,7 @@ public class Wasp extends Enemy{
         } else {
             usedPictureIndex = pictureIndex + 4;
         }
+        checkAndHandleCollision(dt,p,damage);
     }
 
     private void setPictures() {

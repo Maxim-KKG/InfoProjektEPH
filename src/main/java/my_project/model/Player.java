@@ -29,6 +29,7 @@ public class Player extends InteractiveGraphicalObject {
     private double rocketCooldown = 5;
     //Statics for Passives
     public static double pickupRange = 100;
+    private int health;
     // These variables are here for functionality
     private double timer = 0;
     private double mouseX;
@@ -55,7 +56,7 @@ public class Player extends InteractiveGraphicalObject {
         this.p = p;
         this.setNewImage("src/main/resources/graphic/duck/DuckRight1.png");
         setPictures();
-
+        health = 20;
     }
 
 
@@ -158,6 +159,7 @@ public class Player extends InteractiveGraphicalObject {
             shootingTimer = 0;
             p.spawnEgg(x, y, degrees);
         }
+        die();
     }
     public void receiveBread(int amount){
         bread += amount;
@@ -193,6 +195,15 @@ public class Player extends InteractiveGraphicalObject {
     }
     public ProgramController getProgrammController(){
         return p;
+    }
+    public void setHealth(int damage){
+        health -= damage;
+    }
+    private void die(){
+        if(health <= 0){
+            System.out.println("YOU DIED");
+            //TODO player soll sterben
+        }
     }
 
 }

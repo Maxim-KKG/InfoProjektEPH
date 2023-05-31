@@ -22,6 +22,8 @@ public abstract class Enemy extends GraphicalObject{
 
     protected int dropRarity = 0;
     protected ProgramController programController;
+    protected double damageTimer;
+    protected int damage;
 
     public Enemy(double x, double y, Player p){
         this.x = x;
@@ -64,6 +66,16 @@ public abstract class Enemy extends GraphicalObject{
         double dy = Math.sin(degrees)*speed*dt;
         x += dx;
         y += dy;
+    }
+    protected void checkAndHandleCollision(double dt,Player p,int damage){
+        if(p.collidesWith(this)){
+            damageTimer -= dt;
+            if(damageTimer <= 0){
+                p.setHealth(damage);
+                damageTimer = 2;
+                System.out.println("pupu");
+            }
+        }
     }
 
     @Override
