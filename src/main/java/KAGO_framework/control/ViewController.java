@@ -143,6 +143,9 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
             if ( Config.INFO_MESSAGES) System.out.println("  > ViewController: Fehler: Eine Szene mit dem Index "+index+" existiert nicht.");
         }
     }
+    public int getCurrentScene(){
+        return currentScene;
+    }
 
     /**
      * Erzeugt ein neue, leere Szene. Diese wird nicht sofort angezeigt.

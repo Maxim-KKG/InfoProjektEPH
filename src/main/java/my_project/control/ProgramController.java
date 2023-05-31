@@ -1,6 +1,8 @@
 package my_project.control;
 
 import KAGO_framework.control.ViewController;
+import KAGO_framework.view.simple_gui.Button;
+import KAGO_framework.view.simple_gui.ButtonHandler;
 import my_project.model.enemies.Enemy;
 import my_project.model.enemies.Fly;
 import my_project.model.enemies.Wasp;
@@ -45,6 +47,8 @@ public class ProgramController {
      */
     public void startProgram() {
         viewController.createScene();
+        viewController.createScene();
+        viewController.createScene();
         Statics statics = new Statics();
         viewController.draw(statics);
         Background background = new Background();
@@ -57,6 +61,23 @@ public class ProgramController {
         ItemSys itemSys = new ItemSys(player);
         player.setItemSys(itemSys);
         startTime = System.currentTimeMillis();
+        viewController.showScene(2);
+        viewController.draw(new Button(new ButtonHandler() {
+            @Override
+            public void processButtonClick(int code) {
+                viewController.showScene(0);
+            }
+
+            @Override
+            public int getSceneIndex() {
+                return 2;
+            }
+
+            @Override
+            public ViewController getViewController() {
+                return viewController;
+            }
+        },5,200,200,"Start",100));
     }
 
     /**
@@ -64,10 +85,12 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
-        timer += dt;
-        if ((int)timer > 300){
-            System.out.println("5min");
-            timer = 0;
+        if (viewController.getCurrentScene() == 0) {
+            timer += dt;
+            if ((int) timer > 300) {
+                System.out.println("5min");
+                timer = 0;
+            }
         }
 
     }

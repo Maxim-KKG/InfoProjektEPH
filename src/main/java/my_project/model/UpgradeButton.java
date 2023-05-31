@@ -7,12 +7,14 @@ import my_project.control.ProgramController;
 
 import java.awt.*;
 
-public class UpgradeButton{
+public class UpgradeButton {
     private String selectedUpgrade;
     private String upgradeType;
     private ItemSys itemSys;
     private Button button;
-    public UpgradeButton(double x,double y,String upgradeType,ItemSys itemSys,UpgradeWindow upgradeWindow) {
+    private boolean chosen;
+
+    public UpgradeButton(double x, double y, String upgradeType, ItemSys itemSys, UpgradeWindow upgradeWindow) {
 
         this.upgradeType = upgradeType;
         this.itemSys = itemSys;
@@ -24,10 +26,13 @@ public class UpgradeButton{
         ButtonHandler buttonHandler = new ButtonHandler() {
             @Override
             public void processButtonClick(int code) {
-                switch (upgradeType) {
-                    case "Weapon" -> itemSys.chooseSelectedWeapon();
-                    case "Passive" -> itemSys.chooseSelectedPassive();
-                    case "PlayerUpgrade" -> itemSys.chooseSelectedPlayerUpgrade();
+                if (!chosen) {
+                    switch (upgradeType) {
+                        case "Weapon" -> itemSys.chooseSelectedWeapon();
+                        case "Passive" -> itemSys.chooseSelectedPassive();
+                        case "PlayerUpgrade" -> itemSys.chooseSelectedPlayerUpgrade();
+                    }
+                    chosen = true;
                 }
                 upgradeWindow.destroy();
             }
@@ -42,13 +47,14 @@ public class UpgradeButton{
                 return ProgramController.viewController;
             }
         };
-        button = new Button (buttonHandler, 0, 10, y,selectedUpgrade, 50);
-        if (selectedUpgrade.contains("Ultimate")){
+        button = new Button(buttonHandler, 0, 10, y, selectedUpgrade, 50);
+        if (selectedUpgrade.contains("Ultimate")) {
             button.setColor(78, 18, 80);
         }
     }
-    public void removeButton(){
-        ProgramController.viewController.removeDrawable(button,1);
+
+    public void removeButton() {
+        ProgramController.viewController.removeDrawable(button, 1);
     }
 }
 

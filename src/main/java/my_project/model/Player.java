@@ -159,6 +159,9 @@ public class Player extends InteractiveGraphicalObject {
             shootingTimer = 0;
             p.spawnEgg(x, y, degrees);
         }
+    if(ViewController.isKeyDown(KeyEvent.VK_SPACE)){
+        receiveBread(10);
+    }
         die();
     }
     public void receiveBread(int amount){
@@ -203,6 +206,7 @@ public class Player extends InteractiveGraphicalObject {
         if(health <= 0){
             System.out.println("YOU DIED");
             //TODO player soll sterben
+
         }
     }
 
