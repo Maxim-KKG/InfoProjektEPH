@@ -1,5 +1,6 @@
 package my_project.model;
 
+import KAGO_framework.control.MainController;
 import KAGO_framework.control.ViewController;
 import KAGO_framework.model.InteractiveGraphicalObject;
 import KAGO_framework.view.DrawTool;
@@ -206,7 +207,7 @@ public class Player extends InteractiveGraphicalObject {
         if(health <= 0){
             System.out.println("YOU DIED");
             //TODO player soll sterben
-
+            ProgramController.viewController.showScene(3);
         }
     }
 

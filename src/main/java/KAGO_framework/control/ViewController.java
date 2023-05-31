@@ -233,6 +233,21 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
 
         }
     }
+    public void removeAllDrawables(){
+        {
+            for (Scene scene : scenes) {
+                for (Drawable d : scene.drawables) {
+                    notChangingDrawables = false;
+                    SwingUtilities.invokeLater(() -> {
+                        scene.drawables.remove(d);
+                        notChangingDrawables = true;
+                    });
+                }
+
+            }
+
+        }
+    }
 
     /**
      * Abkuerzende Methode, um ein Objekt vom aktuellen DrawingPanel zu entfernen. Dann wird auch

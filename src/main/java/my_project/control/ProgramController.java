@@ -26,8 +26,10 @@ public class ProgramController {
     // Referenzen
     public static ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
     public static ArrayList<Enemy> enemies = new ArrayList<>();
-    public double startTime;
     public double timer;
+    public Player player;
+    public Statics statics;
+    public double clickCooldown;
     //public static ArrayList<Egg> eggs = new ArrayList<>();
 
     /**
@@ -49,23 +51,32 @@ public class ProgramController {
         viewController.createScene();
         viewController.createScene();
         viewController.createScene();
-        Statics statics = new Statics();
+        newGame();
+        ItemSys itemSys = new ItemSys(player);
+        player.setItemSys(itemSys);
+    }
+
+
+    public void newGame(){
+        viewController.showScene(0);
+        statics = new Statics();
         viewController.draw(statics);
         Background background = new Background();
         viewController.draw(background);
-        Player player = new Player(300,300,this);
+        player = new Player(300,300,this);
         viewController.draw(player);
         viewController.register(player);
         EnemySpawner enemySpawner = new EnemySpawner(player,this);
         viewController.draw(enemySpawner);
-        ItemSys itemSys = new ItemSys(player);
-        player.setItemSys(itemSys);
-        startTime = System.currentTimeMillis();
+
+
+
         viewController.showScene(2);
         viewController.draw(new Button(new ButtonHandler() {
             @Override
             public void processButtonClick(int code) {
-                viewController.showScene(0);
+                if (clickCooldown > 0)
+                    viewController.showScene(0);
             }
 
             @Override
@@ -77,14 +88,33 @@ public class ProgramController {
             public ViewController getViewController() {
                 return viewController;
             }
-        },5,200,200,"Start",100));
-    }
+        },5,200,200,"Start",100),2);
+        viewController.draw(new Button(new ButtonHandler() {
+            @Override
+            public void processButtonClick(int code) {
+                viewController.removeAllDrawables();
+                newGame();
+                clickCooldown = 0;
+                viewController.showScene(2);
+            }
 
+            @Override
+            public int getSceneIndex() {
+                return 3;
+            }
+
+            @Override
+            public ViewController getViewController() {
+                return viewController;
+            }
+        },5,200,200,"Restart",100),3);
+    }
     /**
      * Aufruf mit jeder Frame
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
+        clickCooldown += 0.1 * dt;
         if (viewController.getCurrentScene() == 0) {
             timer += dt;
             if ((int) timer > 300) {
