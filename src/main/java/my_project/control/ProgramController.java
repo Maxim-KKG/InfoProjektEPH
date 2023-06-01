@@ -52,8 +52,7 @@ public class ProgramController {
         viewController.createScene();
         viewController.createScene();
         newGame();
-        ItemSys itemSys = new ItemSys(player);
-        player.setItemSys(itemSys);
+
     }
 
 
@@ -69,14 +68,17 @@ public class ProgramController {
         EnemySpawner enemySpawner = new EnemySpawner(player,this);
         viewController.draw(enemySpawner);
         viewController.draw(new UI(player));
+        ItemSys itemSys = new ItemSys(player);
+        player.setItemSys(itemSys);
 
         viewController.draw(new Button(new ButtonHandler() {
             @Override
             public void processButtonClick(int code) {
                 viewController.removeAllDrawables();
+                enemies = new ArrayList<Enemy>();
                 newGame();
                 clickCooldown = 0;
-                viewController.showScene(2);
+                viewController.showScene(0);
             }
 
             @Override

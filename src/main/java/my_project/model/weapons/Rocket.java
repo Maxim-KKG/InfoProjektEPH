@@ -65,9 +65,10 @@ public class Rocket extends Weapon {
                     while (i.hasNext()) {
                         Enemy e2 = i.next();
                         if (e2.getDistanceTo(this) < explosionRadius) {
-                            e.die(damage,this);
-                            if(e.isDead)
+                            e2.die(damage,this);
+                            if(e2.isDead)
                                 i.remove();
+
                         }
                     }
                     ProgramController.viewController.draw(new Explosion(x, y, explosionRadius, new Color(180, 32, 42),2));
