@@ -1,11 +1,9 @@
 package my_project.model.enemies;
 
 import KAGO_framework.view.DrawTool;
-import my_project.control.ProgramController;
 import my_project.model.Player;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +23,7 @@ public class Wasp extends Enemy{
         dropRarity = 1;
         programController = p.getProgrammController();
         setPictures();
-        damage = 3;
+        damage = 1;
         damageTimer = 0;
     }
 
@@ -49,7 +47,6 @@ public class Wasp extends Enemy{
         } else {
             usedPictureIndex = pictureIndex + 4;
         }
-        checkAndHandleCollision(dt,p,damage);
     }
 
     private void setPictures() {

@@ -23,13 +23,13 @@ public abstract class Enemy extends GraphicalObject{
     protected int dropRarity = 0;
     protected ProgramController programController;
     protected double damageTimer;
-    protected int damage;
+    protected int damage = 1;
+    protected double hitRadius = 10;
 
     public Enemy(double x, double y, Player p){
         this.x = x;
         this.y = y;
         this.p = p;
-
     }
 
     public void die(Weapon w){
@@ -56,8 +56,8 @@ public abstract class Enemy extends GraphicalObject{
                 case 1 -> ProgramController.viewController.draw(new Honeycomb(x, y, p));
             }
         }
-        ProgramController.viewController.removeDrawable(this);
         isDead = true;
+        ProgramController.viewController.removeDrawable(this);
     }
 
     protected void moveTowardsPlayer(double dt){
@@ -67,19 +67,18 @@ public abstract class Enemy extends GraphicalObject{
         x += dx;
         y += dy;
     }
-    protected void checkAndHandleCollision(double dt,Player p,int damage){
-        if(p.collidesWith(this)){
-            damageTimer -= dt;
-            if(damageTimer <= 0){
-                p.setHealth(damage);
-                damageTimer = 2;
-                System.out.println("pupu");
-            }
+    protected void checkAndHandleCollision(Player p, int damage){
+        if(calculateDistance() < hitRadius){
+            p.decreaseHealth(damage);
+            Statics.cameraShake(70,0.5);
+            ProgramController.viewController.draw(new Explosion(x,y,10));
+            ProgramController.viewController.removeDrawable(this);
         }
     }
 
     @Override
     public void update(double dt) {
+        checkAndHandleCollision(p,damage);
         if(Math.abs(knockbackX) > 1 || Math.abs(knockbackY) > 1){
             if(knockbackY > 0){
                 y += knockbackY;
@@ -96,5 +95,9 @@ public abstract class Enemy extends GraphicalObject{
                 knockbackX += dt * 10;
             }
         }
+    }
+
+    public double calculateDistance() {
+        return Math.sqrt(Math.pow(x - p.getX(), 2) + Math.pow(y - p.getY(), 2));
     }
 }

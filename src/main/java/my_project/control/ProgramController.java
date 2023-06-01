@@ -26,11 +26,11 @@ public class ProgramController {
     // Referenzen
     public static ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
     public static ArrayList<Enemy> enemies = new ArrayList<>();
+    public static boolean gameActive = false;
     public double timer;
     public Player player;
     public Statics statics;
     public double clickCooldown;
-    //public static ArrayList<Egg> eggs = new ArrayList<>();
 
     /**
      * Konstruktor:
@@ -63,32 +63,13 @@ public class ProgramController {
         viewController.draw(statics);
         Background background = new Background();
         viewController.draw(background);
-        player = new Player(300,300,this);
+        player = new Player(400-16,500,this);
         viewController.draw(player);
         viewController.register(player);
         EnemySpawner enemySpawner = new EnemySpawner(player,this);
         viewController.draw(enemySpawner);
+        viewController.draw(new UI(player));
 
-
-
-        viewController.showScene(2);
-        viewController.draw(new Button(new ButtonHandler() {
-            @Override
-            public void processButtonClick(int code) {
-                if (clickCooldown > 0)
-                    viewController.showScene(0);
-            }
-
-            @Override
-            public int getSceneIndex() {
-                return 2;
-            }
-
-            @Override
-            public ViewController getViewController() {
-                return viewController;
-            }
-        },5,200,200,"Start",100),2);
         viewController.draw(new Button(new ButtonHandler() {
             @Override
             public void processButtonClick(int code) {

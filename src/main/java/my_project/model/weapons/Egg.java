@@ -3,6 +3,7 @@ package my_project.model.weapons;
 import KAGO_framework.view.DrawTool;
 import my_project.Config;
 import my_project.control.ProgramController;
+import my_project.model.Explosion;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -27,7 +28,7 @@ public class Egg extends Weapon {
         g2d = drawTool.getGraphics2D();
         AffineTransform old = g2d.getTransform();//Hihihaw
         g2d.rotate(degrees+Math.PI*0.5,x,y);
-        drawTool.drawImage(pic,x,y);
+        drawTool.drawImage(pic,x-8,y-8);
         g2d.setTransform(old);//PAh Pah Pah
     }
     public void update(double dt){
@@ -37,7 +38,11 @@ public class Egg extends Weapon {
         double dy = Math.sin(degrees)*speed*dt;
         x += dx;
         y += dy;
-
+        if(!ProgramController.gameActive && calculateDistance(375,75) < 45){
+            ProgramController.gameActive = true;
+            ProgramController.viewController.draw(new Explosion(400,400,600));
+            ProgramController.viewController.removeDrawable(this);
+        }
     }
 
 }

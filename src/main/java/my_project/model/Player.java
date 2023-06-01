@@ -1,14 +1,11 @@
 package my_project.model;
 
-import KAGO_framework.control.MainController;
 import KAGO_framework.control.ViewController;
 import KAGO_framework.model.InteractiveGraphicalObject;
 import KAGO_framework.view.DrawTool;
 import my_project.Config;
 import my_project.control.ProgramController;
 import my_project.model.passives.Passive;
-import my_project.model.weapons.Gyro;
-import my_project.model.weapons.Rocket;
 import my_project.model.weapons.Weapon;
 
 import javax.imageio.ImageIO;
@@ -17,7 +14,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,6 +27,7 @@ public class Player extends InteractiveGraphicalObject {
     //Statics for Passives
     public static double pickupRange = 100;
     private int health;
+    private int maxHealth;
     // These variables are here for functionality
     private double timer = 0;
     private double mouseX;
@@ -46,10 +43,7 @@ public class Player extends InteractiveGraphicalObject {
     private ArrayList<BufferedImage> images = new ArrayList<>();
     public HashMap<Class<?>, Weapon> weapons = new HashMap<>();
     private HashMap<Class<?>, Passive> passives = new HashMap<>();
-    private double rocketTimer;
     private ItemSys itemSys;
-    private int bread;
-    private boolean gyro;
 
     public Player(double x, double y, ProgramController p) {
         this.x = x;
@@ -57,7 +51,8 @@ public class Player extends InteractiveGraphicalObject {
         this.p = p;
         this.setNewImage("src/main/resources/graphic/duck/DuckRight1.png");
         setPictures();
-        health = 20;
+        health = 3;
+        maxHealth = health;
     }
 
 
@@ -102,8 +97,10 @@ public class Player extends InteractiveGraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.setCurrentColor(156,219,67,(int)Math.abs(Math.sin(timer)*20));
-        drawTool.drawFilledCircle(x,y,pickupRange);
+        if(ProgramController.gameActive) {
+            drawTool.setCurrentColor(156, 219, 67, (int) Math.abs(Math.sin(timer) * 20));
+            drawTool.drawFilledCircle(x, y, pickupRange);
+        }
         drawTool.drawImage(images.get(usedPictureIndex-1),x-16,y-17);
     }
 
@@ -166,7 +163,6 @@ public class Player extends InteractiveGraphicalObject {
         die();
     }
     public void receiveBread(int amount){
-        bread += amount;
         if(itemSys.receiveBread(amount))
             mouseDown = false;
     }
@@ -200,15 +196,20 @@ public class Player extends InteractiveGraphicalObject {
     public ProgramController getProgrammController(){
         return p;
     }
-    public void setHealth(int damage){
+    public void decreaseHealth(int damage){
         health -= damage;
     }
     private void die(){
         if(health <= 0){
-            System.out.println("YOU DIED");
-            //TODO player soll sterben
             ProgramController.viewController.showScene(3);
         }
     }
 
+    public int getHealth() {
+        return health;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
 }

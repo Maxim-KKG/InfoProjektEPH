@@ -7,6 +7,7 @@ import my_project.control.ProgramController;
 import KAGO_framework.view.DrawFrame;
 import KAGO_framework.view.DrawingPanel;
 import my_project.model.Background;
+import my_project.model.UI;
 import my_project.model.pickups.Bread;
 
 import javax.swing.*;
@@ -315,10 +316,12 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
         Iterator<Drawable> temporaryIterator = scenes.get(currentScene).drawables.iterator();
         while (temporaryIterator.hasNext() && notChangingDrawables){
             Drawable currentObject = temporaryIterator.next();
-            if(currentObject.getClass() != Background.class && currentObject.getClass() != Bread.class){
+            if(currentObject.getClass() != Background.class && currentObject.getClass() != Bread.class && currentObject.getClass() != UI.class){
                 temporaryList.add(currentObject);
             }
         }
+
+        temporaryList = addToList(temporaryList, UI.class);
 
         Iterator<Drawable> drawIterator = temporaryList.iterator();
         while (drawIterator.hasNext() && notChangingDrawables){

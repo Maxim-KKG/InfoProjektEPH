@@ -10,6 +10,8 @@ public class EnemySpawner extends GraphicalObject {
     private double timer, waveTimer = 0;
     private double spawnRadius = 600;
     private int waveIndex = 0;
+    private int waveLength = 200;
+    private double waveEnemySpawnTimer = 1;
 
     public EnemySpawner(Player p, ProgramController programController){
         this.p = p;
@@ -18,30 +20,38 @@ public class EnemySpawner extends GraphicalObject {
 
     @Override
     public void update(double dt) {
-        if(timer > 200) {
+        if(!ProgramController.gameActive)
+            return;
+        if(timer > waveLength) {
             waveIndex += 1;
             timer = 0;
         }
         waveTimer += dt;
-        if(waveTimer < 5)
+        if(waveTimer < waveEnemySpawnTimer)
             return;
         waveTimer = 0;
         timer += 1;
         switch (waveIndex){
             case 0:
-                if(Math.random() < 0.7)
-                    spawnFly();
-                else
-                    spawnWasp();
+                spawnFly();
+                waveEnemySpawnTimer = 0.5;
+                waveLength = 100;
                 return;
             case 1:
-                if(Math.random() < 0.7)
+                if(Math.random() > 0.7)
                     spawnWasp();
                 else
-                    spawnSpider();
+                    spawnFly();
                 return;
             case 2:
+                spawnFly();
+                waveEnemySpawnTimer = 0.1;
+                waveLength = 100;
+                return;
+            case 3:
                 spawnSpider();
+                waveEnemySpawnTimer = 15;
+                waveLength = 2;
                 return;
         }
         spawnSpider();
