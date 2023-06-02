@@ -12,6 +12,10 @@ import my_project.model.weapons.Egg;
 import my_project.model.*;
 import my_project.model.weapons.Rocket;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +35,7 @@ public class ProgramController {
     public Player player;
     public Statics statics;
     public double clickCooldown;
+    private BufferedImage b;
 
     /**
      * Konstruktor:
@@ -52,7 +57,6 @@ public class ProgramController {
         viewController.createScene();
         viewController.createScene();
         newGame();
-
     }
 
 
@@ -62,6 +66,7 @@ public class ProgramController {
         viewController.draw(statics);
         Background background = new Background();
         viewController.draw(background);
+        viewController.draw(background,3);
         player = new Player(400-16,500,this);
         viewController.draw(player);
         viewController.register(player);
@@ -70,27 +75,9 @@ public class ProgramController {
         viewController.draw(new UI(player));
         ItemSys itemSys = new ItemSys(player);
         player.setItemSys(itemSys);
-
-        viewController.draw(new Button(new ButtonHandler() {
-            @Override
-            public void processButtonClick(int code) {
-                viewController.removeAllDrawables();
-                enemies = new ArrayList<Enemy>();
-                newGame();
-                clickCooldown = 0;
-                viewController.showScene(0);
-            }
-
-            @Override
-            public int getSceneIndex() {
-                return 3;
-            }
-
-            @Override
-            public ViewController getViewController() {
-                return viewController;
-            }
-        },5,200,200,"Restart",100),3);
+        RetryButton rb = new RetryButton(300,300,this);
+        viewController.draw(rb,3);
+        viewController.register(rb,3);
     }
     /**
      * Aufruf mit jeder Frame

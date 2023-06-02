@@ -4,6 +4,7 @@ import KAGO_framework.view.DrawTool;
 import my_project.Config;
 import my_project.control.ProgramController;
 import my_project.model.Explosion;
+import my_project.model.Statics;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -41,6 +42,7 @@ public class Egg extends Weapon {
         if(!ProgramController.gameActive && calculateDistance(375,75) < 45){
             ProgramController.gameActive = true;
             ProgramController.viewController.draw(new Explosion(400,400,600));
+            Statics.cameraShake(300,0.2);
             ProgramController.viewController.removeDrawable(this);
         }
     }

@@ -26,10 +26,10 @@ public class UI extends GraphicalObject {
         if(!ProgramController.gameActive)
             return;
         for(int i = 0; i < p.getMaxHealth(); i++){
-            drawTool.drawImage(noHealth,x + (i * 30),y);
+            drawTool.drawImage(noHealth,x + (i * 30) - Statics.cameraX,y  - Statics.cameraY);
         }
         for(int i = 0; i < p.getHealth(); i++){
-            drawTool.drawImage(getMyImage(),x + (i * 30),y);
+            drawTool.drawImage(getMyImage(),x + (i * 30) - Statics.cameraX,y  - Statics.cameraY);
         }
     }
 }
