@@ -16,6 +16,11 @@ public class Statics extends GraphicalObject {
         strengh = amount;
     }
 
+    public static void restart(){
+        timer = 0;
+        strengh = 0;
+    }
+
     @Override
     public void update(double dt) {
         if(timer > 0){

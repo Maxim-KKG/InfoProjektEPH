@@ -157,9 +157,9 @@ public class Player extends InteractiveGraphicalObject {
             shootingTimer = 0;
             p.spawnEgg(x, y, degrees);
         }
-    if(ViewController.isKeyDown(KeyEvent.VK_SPACE)){
-        receiveBread(10);
-    }
+        if(ViewController.isKeyDown(KeyEvent.VK_SPACE)){
+            receiveBread(10);
+        }
         die();
     }
     public void receiveBread(int amount){
@@ -198,6 +198,7 @@ public class Player extends InteractiveGraphicalObject {
     }
     public void decreaseHealth(int damage){
         health -= damage;
+        Statics.cameraShake(200,0.5);
     }
     private void die(){
         if(health <= 0){

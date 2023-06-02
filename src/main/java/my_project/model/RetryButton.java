@@ -34,7 +34,5 @@ public class RetryButton extends InteractiveGraphicalObject {
         p.newGame();
         p.clickCooldown = 0;
         p.viewController.showScene(0);
-        Statics.cameraX = 0;
-        Statics.cameraY = 0;
     }
 }

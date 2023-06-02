@@ -73,7 +73,7 @@ public class Rocket extends Weapon {
                     }
                     ProgramController.viewController.draw(new Explosion(x, y, explosionRadius, new Color(180, 32, 42),2));
                     ProgramController.viewController.removeDrawable(this);
-                    Statics.cameraShake(100,0.5);
+                    Statics.cameraShake(70,0.5);
                     break;
                 }
             }

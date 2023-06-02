@@ -51,10 +51,10 @@ public class EnemySpawner extends GraphicalObject {
             case 3:
                 spawnSpider();
                 waveEnemySpawnTimer = 10;
-                waveLength = 2;
+                waveLength = 1;
                 return;
         }
-        waveEnemySpawnTimer = 5;
+        waveEnemySpawnTimer = 4;
         spawnSpider();
     }
 

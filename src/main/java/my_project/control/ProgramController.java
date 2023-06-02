@@ -66,18 +66,20 @@ public class ProgramController {
         viewController.draw(statics);
         Background background = new Background();
         viewController.draw(background);
+        viewController.draw(background,1);
         viewController.draw(background,3);
         player = new Player(400-16,500,this);
         viewController.draw(player);
         viewController.register(player);
         EnemySpawner enemySpawner = new EnemySpawner(player,this);
         viewController.draw(enemySpawner);
-        viewController.draw(new UI(player));
         ItemSys itemSys = new ItemSys(player);
         player.setItemSys(itemSys);
+        viewController.draw(new UI(player,itemSys));
         RetryButton rb = new RetryButton(300,300,this);
         viewController.draw(rb,3);
         viewController.register(rb,3);
+        Statics.restart();
     }
     /**
      * Aufruf mit jeder Frame

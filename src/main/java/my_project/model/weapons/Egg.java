@@ -34,7 +34,7 @@ public class Egg extends Weapon {
     }
     public void update(double dt){
         super.update(dt);
-        checkAndHandleCollision(100,0.2);
+        checkAndHandleCollision(200,0.1);
         double dx = Math.cos(degrees)*speed*dt;
         double dy = Math.sin(degrees)*speed*dt;
         x += dx;
@@ -42,7 +42,7 @@ public class Egg extends Weapon {
         if(!ProgramController.gameActive && calculateDistance(375,75) < 45){
             ProgramController.gameActive = true;
             ProgramController.viewController.draw(new Explosion(400,400,600));
-            Statics.cameraShake(300,0.2);
+            Statics.cameraShake(300,0.5);
             ProgramController.viewController.removeDrawable(this);
         }
     }

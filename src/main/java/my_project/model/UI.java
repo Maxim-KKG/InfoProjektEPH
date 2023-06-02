@@ -5,20 +5,26 @@ import KAGO_framework.view.DrawTool;
 import my_project.Config;
 import my_project.control.ProgramController;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class UI extends GraphicalObject {
 
     private Player p;
+    private ItemSys i;
     private BufferedImage noHealth;
+    private BufferedImage levelMeter;
 
-    public UI(Player p){
+    public UI(Player p, ItemSys i){
         x = 20;
         y = 20;
         setNewImage("src/main/resources/graphic/NoHealth.png");
         noHealth = getMyImage();
+        setNewImage("src/main/resources/graphic/LevelMeter.png");
+        levelMeter = getMyImage();
         setNewImage("src/main/resources/graphic/Health.png");
         this.p = p;
+        this.i = i;
     }
 
     @Override
@@ -31,5 +37,14 @@ public class UI extends GraphicalObject {
         for(int i = 0; i < p.getHealth(); i++){
             drawTool.drawImage(getMyImage(),x + (i * 30) - Statics.cameraX,y  - Statics.cameraY);
         }
+        drawTool.drawImage(levelMeter,x + 200 - Statics.cameraX,y - Statics.cameraY);
+        double bread = i.getBread();
+        double breadNeeded = i.getBreadNeeded() + 1;
+        drawTool.setCurrentColor(new Color(166, 252, 219));
+        drawTool.drawFilledRectangle(x - Statics.cameraX + 202,y - Statics.cameraY + 6,(bread/breadNeeded)*500,5);
+        drawTool.setCurrentColor(new Color(36, 159, 222));
+        drawTool.drawFilledRectangle(x - Statics.cameraX + 202,y - Statics.cameraY + 11,(bread/breadNeeded)*500,26);
+        drawTool.setCurrentColor(new Color(32, 214, 199));
+        drawTool.drawFilledRectangle(x - Statics.cameraX + 202,y - Statics.cameraY + 37,(bread/breadNeeded)*500,5);
     }
 }

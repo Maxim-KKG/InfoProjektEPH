@@ -98,18 +98,25 @@ public class ItemSys {
         if (levelIndex > Config.BREAD_PER_LEVEL.length-1)
             return false;
         if (bread > Config.BREAD_PER_LEVEL[levelIndex]){
-            bread -= Config.BREAD_PER_LEVEL[levelIndex];
+            bread = 0;
             levelIndex += 1;
             levelUp();
             return true;
         }
         return false;
     }
+
+    public int getBread(){
+        return bread;
+    }
+
+    public int getBreadNeeded(){
+        return Config.BREAD_PER_LEVEL[levelIndex];
+    }
+
     public void levelUp(){
         new UpgradeWindow(this);
         ProgramController.viewController.showScene(1);
-        //TODO Handle Button Spawning and game Pausing
-
     }
 
 }
