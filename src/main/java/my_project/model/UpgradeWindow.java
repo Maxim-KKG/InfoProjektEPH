@@ -5,6 +5,7 @@ import my_project.control.ProgramController;
 public class UpgradeWindow {
     public UpgradeButton[] upgradeButtons;
     public UpgradeWindow(ItemSys itemSys){
+        ProgramController.viewController.showScene(1);
         upgradeButtons = new UpgradeButton[]{
         new UpgradeButton(0, 10, "Weapon", itemSys, this),
         new UpgradeButton(0, 300, "Passive", itemSys, this),

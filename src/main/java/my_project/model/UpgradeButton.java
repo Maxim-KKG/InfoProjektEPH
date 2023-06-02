@@ -1,21 +1,23 @@
 package my_project.model;
 
 import KAGO_framework.control.ViewController;
+import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.simple_gui.Button;
 import KAGO_framework.view.simple_gui.ButtonHandler;
 import my_project.control.ProgramController;
 
 import java.awt.*;
 
-public class UpgradeButton {
+public class UpgradeButton extends GraphicalObject {
     private String selectedUpgrade;
     private String upgradeType;
     private ItemSys itemSys;
     private Button button;
     private boolean chosen;
 
-    public UpgradeButton(double x, double y, String upgradeType, ItemSys itemSys, UpgradeWindow upgradeWindow) {
+    public UpgradeButton(double x, double y, String upgradeType, ItemSys itemSys, UpgradeWindow upgradeWindow){
 
+        setNewImage("src/main/resources/graphic/Honeycomb.png");
         this.upgradeType = upgradeType;
         this.itemSys = itemSys;
         switch (upgradeType) {
@@ -48,6 +50,8 @@ public class UpgradeButton {
             }
         };
         button = new Button(buttonHandler, 0, 10, y, selectedUpgrade, 50);
+        button.setHeight(200);
+        ProgramController.viewController.draw (new Button(buttonHandler,0,10,y + 100,getMyImage(),false),1);
         if (selectedUpgrade.contains("Ultimate")) {
             button.setColor(78, 18, 80);
         }

@@ -37,6 +37,7 @@ public class ProgramController {
     public double clickCooldown;
     private BufferedImage b;
 
+
     /**
      * Konstruktor:
      * Dieser legt das Objekt der Klasse ProgramController an, das den Programmfluss steuert.
@@ -107,17 +108,17 @@ public class ProgramController {
             case 1:
                 Fly f = new Fly(x,y,p);
                 enemies.add(f);
-                viewController.draw(f);
+                viewController.draw(f,0);
                 break;
             case 2:
                 Wasp w = new Wasp(x,y,p);
                 enemies.add(w);
-                viewController.draw(w);
+                viewController.draw(w,0);
                 break;
             case 3:
                 Spider s = new Spider(x,y,p);
                 enemies.add(s);
-                viewController.draw(s);
+                viewController.draw(s,0);
                 break;
         }
     }
