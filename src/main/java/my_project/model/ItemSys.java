@@ -50,8 +50,8 @@ public class ItemSys {
         return selectedWeapon;
     }
     public String newRandomPassive(){
-        int rand = (int) (Math.random() * passiveTypes.length);
-        selectedPassive = passiveTypes[rand];
+        int rand = (int) (Math.random() * passiveTypes.size());
+        selectedPassive = passiveTypes.get(rand);
         return selectedPassive;
     }
     public String newRandomPlayerUpgrade(){

@@ -35,16 +35,15 @@ public class Explosion extends GraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
+        if((int) (timer * 500 * strength) <= 0)
+            return;
         if(timer > 0.4)
             drawTool.setCurrentColor(0,0,0,255);
         else
             if(color == null)
                 drawTool.setCurrentColor(255, 255, 255, Math.min((int) (timer * 500 * strength), 255));
             else
-                if(timer * 500 * strength > 255)
-                    drawTool.setCurrentColor(color.getRed(),color.getGreen(),color.getBlue(),255);
-                else
-                    drawTool.setCurrentColor(color.getRed(),color.getGreen(),color.getBlue(),(int)(timer*500));
+                drawTool.setCurrentColor(color.getRed(), color.getGreen(), color.getBlue(), Math.min((int) (timer * 500 * strength), 255));
         drawTool.drawFilledCircle(x,y,radius);
     }
 

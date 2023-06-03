@@ -20,12 +20,13 @@ import java.util.HashMap;
 public class Player extends InteractiveGraphicalObject {
 
     // These variables can be changed as upgrades
-    private double speed = 150;
-    private double shootCooldown = 0.2;
+    public static double speed;
+    public static double shootCooldown;
     private boolean rocket = false;
     private double rocketCooldown = 5;
     //Statics for Passives
-    public static double pickupRange = 100;
+    public static double pickupRange;
+    public static boolean shield;
     private int health;
     private int maxHealth;
     // These variables are here for functionality
@@ -51,6 +52,14 @@ public class Player extends InteractiveGraphicalObject {
         this.p = p;
         this.setNewImage("src/main/resources/graphic/duck/DuckRight1.png");
         setPictures();
+        setVariables();
+    }
+
+    private void setVariables(){
+        shield = false;
+        pickupRange = 8;
+        speed = 150;
+        shootCooldown = 0.4;
         health = 3;
         maxHealth = health;
     }

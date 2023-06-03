@@ -1,5 +1,6 @@
 package my_project.control;
 
+import KAGO_framework.control.SoundController;
 import KAGO_framework.control.ViewController;
 import KAGO_framework.view.simple_gui.Button;
 import KAGO_framework.view.simple_gui.ButtonHandler;
@@ -61,6 +62,10 @@ public class ProgramController {
         newGame();
     }
 
+    private void loadAudio(){
+        viewController.getSoundController().loadSound("src/main/resources/sound/EggCrack.mp3","eggCrack",false);
+        viewController.getSoundController().loadSound("src/main/resources/sound/MainTrack.mp3","mainTrack",true);
+    }
 
     public void newGame(){
         viewController.showScene(0);
@@ -130,6 +135,7 @@ public class ProgramController {
     }
     public void shootNet(double x, double y, Player player){
         Web net = new Web(x,y,player);
-        viewController.draw(net);
+        enemies.add(net);
+        viewController.draw(net,0);
     }
 }

@@ -41,10 +41,10 @@ public class UI extends GraphicalObject {
         double bread = i.getBread();
         double breadNeeded = i.getBreadNeeded() + 1;
         drawTool.setCurrentColor(new Color(166, 252, 219));
-        drawTool.drawFilledRectangle(x - Statics.cameraX + 202,y - Statics.cameraY + 6,(bread/breadNeeded)*500,5);
+        drawTool.drawFilledRectangle(x + 202 - Statics.cameraX,y + 6 - Statics.cameraY,(bread/breadNeeded)*500,5);
         drawTool.setCurrentColor(new Color(36, 159, 222));
-        drawTool.drawFilledRectangle(x - Statics.cameraX + 202,y - Statics.cameraY + 11,(bread/breadNeeded)*500,26);
+        drawTool.drawFilledRectangle(x + 202 - Statics.cameraX,y + 11 - Statics.cameraY,(bread/breadNeeded)*500,26);
         drawTool.setCurrentColor(new Color(32, 214, 199));
-        drawTool.drawFilledRectangle(x - Statics.cameraX + 202,y - Statics.cameraY + 37,(bread/breadNeeded)*500,5);
+        drawTool.drawFilledRectangle(x + 202 - Statics.cameraX,y + 37 - Statics.cameraY,(bread/breadNeeded)*500,5);
     }
 }

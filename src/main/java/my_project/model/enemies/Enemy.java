@@ -49,7 +49,7 @@ public abstract class Enemy extends GraphicalObject{
             return;
         }
         Statics.cameraShake(camShakeStrength,camShakeAmount);
-        ProgramController.viewController.draw(new Explosion(x,y,10));
+        ProgramController.viewController.draw(new Explosion(x,y,hitRadius));
         if(Math.random() < breadDroprate-(dropRarity*0.4)){
             switch (dropRarity){
                 case 0 -> ProgramController.viewController.draw(new Bread(x, y, p));
@@ -67,11 +67,12 @@ public abstract class Enemy extends GraphicalObject{
         x += dx;
         y += dy;
     }
+
     protected void checkAndHandleCollision(Player p, int damage){
         if(calculateDistance() < hitRadius){
             p.decreaseHealth(damage);
             Statics.cameraShake(70,0.5);
-            ProgramController.viewController.draw(new Explosion(x,y,10));
+            ProgramController.viewController.draw(new Explosion(x,y,hitRadius));
             ProgramController.viewController.removeDrawable(this);
         }
     }

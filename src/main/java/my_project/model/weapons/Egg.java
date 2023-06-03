@@ -1,5 +1,6 @@
 package my_project.model.weapons;
 
+import KAGO_framework.control.SoundController;
 import KAGO_framework.view.DrawTool;
 import my_project.Config;
 import my_project.control.ProgramController;
@@ -44,6 +45,7 @@ public class Egg extends Weapon {
             ProgramController.gameActive = true;
             ProgramController.viewController.draw(new Explosion(400,400,600));
             Statics.cameraShake(300,0.5);
+            SoundController.playSound("mainTrack");
             ProgramController.viewController.removeDrawable(this);
         }
     }

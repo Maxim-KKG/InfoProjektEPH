@@ -5,24 +5,20 @@ import KAGO_framework.view.DrawTool;
 import my_project.Config;
 import my_project.control.ProgramController;
 import my_project.model.Player;
+import my_project.model.enemies.Enemy;
 import my_project.model.enemies.Spider;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class Web extends GraphicalObject {
-    private double degrees;
-    private Player player;
-    private Graphics2D g2d;
-    private double speed;
+public class Web extends Enemy {
 
     public Web(double x, double y, Player player) {
+        super(x,y,player);
         degrees = Math.atan2(player.getY() - y, player.getX() - x);
-        this.x = x;
-        this.y = y;
-        this.player = player;
         speed = 500;
         setNewImage("src/main/resources/graphic/bullets/Web.png");
+        hitRadius = 8;
     }
 
     public void draw(DrawTool drawTool){
@@ -40,11 +36,11 @@ public class Web extends GraphicalObject {
         }else if(y < -200){
             ProgramController.viewController.removeDrawable(this);
         }
-
         double dx = Math.cos(degrees)*speed*dt;
         double dy = Math.sin(degrees)*speed*dt;
         x += dx;
         y += dy;
+        checkAndHandleCollision(p,1);
     }
 
 }
