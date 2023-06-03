@@ -58,6 +58,7 @@ public abstract class Weapon extends GraphicalObject {
 
     protected void checkAndHandleCollision(){
         checkAndHandleCollision(0,0);
+
     }
 
     protected void checkAndHandleCollision(double camShakeAmount, double camShakeDuration){
@@ -67,6 +68,9 @@ public abstract class Weapon extends GraphicalObject {
             if(e.getX()-x > -15 && e.getX()-x < 15 && e.getY()-y > -15 && e.getY()-y < 15){
                 Statics.cameraShake(camShakeAmount,camShakeDuration);
                 e.die(damage,this);
+                if (ProgramController.viewController.getSoundController().getInitialized()){
+                    SoundController.playSound(deathSound);
+                }
                 if(e.isDead)
                     i.remove();
                 if (hasPierce){

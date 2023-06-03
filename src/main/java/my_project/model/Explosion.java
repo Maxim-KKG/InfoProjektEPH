@@ -39,10 +39,7 @@ public class Explosion extends GraphicalObject {
             drawTool.setCurrentColor(0,0,0,255);
         else
             if(color == null)
-                if(timer * 500 * strength > 255)
-                    drawTool.setCurrentColor(255,255,255,255);
-                else
-                    drawTool.setCurrentColor(255,255,255,(int)(timer*500));
+                drawTool.setCurrentColor(255, 255, 255, Math.min((int) (timer * 500 * strength), 255));
             else
                 if(timer * 500 * strength > 255)
                     drawTool.setCurrentColor(color.getRed(),color.getGreen(),color.getBlue(),255);
