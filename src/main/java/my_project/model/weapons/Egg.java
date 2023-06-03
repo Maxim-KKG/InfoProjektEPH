@@ -21,6 +21,7 @@ public class Egg extends Weapon {
         super(x,y,null);
         this.degrees = degrees;
         setNewImage("src/main/resources/graphic/bullets/Egg.png");
+        deathSound = "eggCrack";
         pic = getMyImage();
         damage = 2;
     }

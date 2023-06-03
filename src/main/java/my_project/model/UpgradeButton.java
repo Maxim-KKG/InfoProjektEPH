@@ -7,16 +7,18 @@ import KAGO_framework.view.simple_gui.ButtonHandler;
 import my_project.control.ProgramController;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class UpgradeButton extends GraphicalObject {
     private String selectedUpgrade;
     private String upgradeType;
     private ItemSys itemSys;
     private Button button;
-    private boolean chosen;
+    private static boolean chosen;
+    private BufferedImage backgroundImage;
 
     public UpgradeButton(double x, double y, String upgradeType, ItemSys itemSys, UpgradeWindow upgradeWindow){
-
+        chosen = false;
         setNewImage("src/main/resources/graphic/Honeycomb.png");
         this.upgradeType = upgradeType;
         this.itemSys = itemSys;
@@ -25,6 +27,12 @@ public class UpgradeButton extends GraphicalObject {
             case "Passive" -> selectedUpgrade = itemSys.newRandomPassive();
             case "PlayerUpgrade" -> selectedUpgrade = itemSys.newRandomPlayerUpgrade();
         }
+        switch (upgradeType) {
+            case "Weapon" -> setNewImage("src/main/resources/graphic/Honeycomb.png");
+            case "Passive" -> setNewImage("src/main/resources/graphic/Honeycomb.png");
+            case "PlayerUpgrade" -> setNewImage("src/main/resources/graphic/Honeycomb.png");
+        }
+
         ButtonHandler buttonHandler = new ButtonHandler() {
             @Override
             public void processButtonClick(int code) {
@@ -34,6 +42,7 @@ public class UpgradeButton extends GraphicalObject {
                         case "Passive" -> itemSys.chooseSelectedPassive();
                         case "PlayerUpgrade" -> itemSys.chooseSelectedPlayerUpgrade();
                     }
+                    System.out.println("Grrrr");
                     chosen = true;
                 }
                 upgradeWindow.destroy();

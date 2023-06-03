@@ -57,6 +57,7 @@ public class ProgramController {
         viewController.createScene();
         viewController.createScene();
         viewController.createScene();
+        loadAudio();
         newGame();
     }
 

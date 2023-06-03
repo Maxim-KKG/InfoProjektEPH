@@ -5,8 +5,11 @@ import my_project.control.ProgramController;
 import my_project.model.passives.Passive;
 import my_project.model.weapons.Weapon;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class ItemSys {
@@ -16,13 +19,13 @@ public class ItemSys {
     private HashMap<String,String[]> types = new HashMap<>();
     private HashMap<String,String> selections = new HashMap<>();
     //Weapons
-    private String[] weaponTypes =  {"RocketLauncher","Gyro","Forcefield"};
+    private ArrayList<String> weaponTypes =  new ArrayList<>(Arrays.asList("RocketLauncher","Gyro","Forcefield"));
     private String selectedWeapon;
     //Passives
-    private String[] passiveTypes = {"PickupRange","BreadDroprate"};
+    private ArrayList<String> passiveTypes = new ArrayList<>(Arrays.asList("PickupRange","BreadDroprate"));
     private String selectedPassive;
     //Player
-    private String[] playerUpgradeTypes = {"HEhehehaw"};
+    private ArrayList<String> playerUpgradeTypes = new ArrayList<>(Arrays.asList("Shield","Speed","AttackSpeed"));
     private String selectedPlayerUpgrade;
 
     public ItemSys(Player player) {
@@ -30,12 +33,12 @@ public class ItemSys {
 
         types.put("Weapon", new String[]{"RocketLauncher", "Gyro", "Forcefield"});
         types.put("Passive", new String[]{"PickupRange","BreadDroprate"});
-        types.put("PlayerUpgrades", new String[]{"HEhehehaw"});
+        types.put("PlayerUpgrades", new String[]{"Shield","Speed","AttackSpeed"});
 
     }
     public String newRandomWeapon() {
-        int rand = (int) (Math.random() * weaponTypes.length);
-        selectedWeapon = weaponTypes[rand];
+        int rand = (int) (Math.random() * weaponTypes.size());
+        selectedWeapon = weaponTypes.get(rand);
         try {
             Class<?> clazz = Class.forName("my_project.model.weapons." + selectedWeapon);
             if (player.weapons.get(clazz) != null && player.weapons.get(clazz).getLevel() >= Config.UPGRADE_LIMIT ){
@@ -52,8 +55,8 @@ public class ItemSys {
         return selectedPassive;
     }
     public String newRandomPlayerUpgrade(){
-        int rand = (int) (Math.random() * playerUpgradeTypes.length);
-        selectedPlayerUpgrade = playerUpgradeTypes[rand];
+        int rand = (int) (Math.random() * playerUpgradeTypes.size());
+        selectedPlayerUpgrade = playerUpgradeTypes.get(rand);
         return selectedPlayerUpgrade;
     }
     public String newRandomUpgrade(String type){
@@ -91,16 +94,35 @@ public class ItemSys {
         }
     }
     public void chooseSelectedPlayerUpgrade(){
+        applyPlayerUpgrade(selectedPlayerUpgrade);
         //TODO Implement player Upgrades
+    }
+    private void applyPlayerUpgrade(String playerUpgradeName){
+        switch (playerUpgradeName){
+            case "Shield":{
+                Player.shield = true;
+                playerUpgradeTypes.remove("Shield");
+            }
+            case "Speed":{
+                Player.speed++;
+                playerUpgradeTypes.remove("Shield");
+            }
+            case "AttackSpeed":{
+                Player.shootCooldown /= 1.5;
+            }
+        }
     }
     public boolean receiveBread(int amount){
         bread += amount;
         if (levelIndex > Config.BREAD_PER_LEVEL.length-1)
-            return false;
+            levelIndex = Config.BREAD_PER_LEVEL.length-1;
+        //TODO Real max level handling
         if (bread > Config.BREAD_PER_LEVEL[levelIndex]){
             bread = 0;
             levelIndex += 1;
             levelUp();
+            if (levelIndex > Config.BREAD_PER_LEVEL.length-1)
+                levelIndex = Config.BREAD_PER_LEVEL.length-1;
             return true;
         }
         return false;
@@ -115,7 +137,8 @@ public class ItemSys {
     }
 
     public void levelUp(){
-        new UpgradeWindow(this);
+        if (!UpgradeWindow.isActive)
+            new UpgradeWindow(this);
         ProgramController.viewController.showScene(1);
     }
 

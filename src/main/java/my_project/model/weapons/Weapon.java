@@ -1,5 +1,6 @@
 package my_project.model.weapons;
 
+import KAGO_framework.control.SoundController;
 import KAGO_framework.model.GraphicalObject;
 import my_project.Config;
 import my_project.control.ProgramController;
@@ -17,6 +18,7 @@ public abstract class Weapon extends GraphicalObject {
     protected int level;
     protected boolean hasPierce = true;
     private Graphics2D g2d;
+    protected String deathSound = "eggCrack";
 
     //Statics for Passives
     public static double explosionRangeUp;

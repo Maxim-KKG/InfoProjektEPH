@@ -13,9 +13,15 @@ public class UpgradeWindow {
         };
     }
     public void destroy(){
-        for (UpgradeButton b : upgradeButtons) {
+        Iterator<UpgradeButton> i = upgradeButtons.iterator();
+        while (i.hasNext()){
+            UpgradeButton b = i.next();
             b.removeButton();
+            i.remove();
         }
-        ProgramController.viewController.showScene(0);
+        if (upgradeButtons.size() == 0) {
+            isActive = false;
+            ProgramController.viewController.showScene(0);
+        }
     }
 }
