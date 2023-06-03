@@ -14,12 +14,12 @@ public class UpgradeButton extends GraphicalObject {
     private String upgradeType;
     private ItemSys itemSys;
     private Button button;
+    private Button imageButton;
     private static boolean chosen;
     private BufferedImage backgroundImage;
 
     public UpgradeButton(double x, double y, String upgradeType, ItemSys itemSys, UpgradeWindow upgradeWindow){
         chosen = false;
-        setNewImage("src/main/resources/graphic/Honeycomb.png");
         this.upgradeType = upgradeType;
         this.itemSys = itemSys;
         switch (upgradeType) {
@@ -28,10 +28,11 @@ public class UpgradeButton extends GraphicalObject {
             case "PlayerUpgrade" -> selectedUpgrade = itemSys.newRandomPlayerUpgrade();
         }
         switch (upgradeType) {
-            case "Weapon" -> setNewImage("src/main/resources/graphic/Honeycomb.png");
-            case "Passive" -> setNewImage("src/main/resources/graphic/Honeycomb.png");
-            case "PlayerUpgrade" -> setNewImage("src/main/resources/graphic/Honeycomb.png");
+            case "Weapon" -> setNewImage("src/main/resources/graphic/buttons/Red.png");
+            case "Passive" -> setNewImage("src/main/resources/graphic/buttons/Blue.png");
+            case "PlayerUpgrade" -> setNewImage("src/main/resources/graphic/buttons/Green.png");
         }
+
 
         ButtonHandler buttonHandler = new ButtonHandler() {
             @Override
@@ -42,7 +43,6 @@ public class UpgradeButton extends GraphicalObject {
                         case "Passive" -> itemSys.chooseSelectedPassive();
                         case "PlayerUpgrade" -> itemSys.chooseSelectedPlayerUpgrade();
                     }
-                    System.out.println("Grrrr");
                     chosen = true;
                 }
                 upgradeWindow.destroy();
@@ -58,9 +58,12 @@ public class UpgradeButton extends GraphicalObject {
                 return ProgramController.viewController;
             }
         };
-        button = new Button(buttonHandler, 0, 10, y, selectedUpgrade, 50);
-        button.setHeight(200);
-        ProgramController.viewController.draw (new Button(buttonHandler,0,10,y + 100,getMyImage(),false),1);
+
+        imageButton = new Button(buttonHandler,0,x,y,getMyImage(),true);
+        button = new Button(buttonHandler, 0, x, y, selectedUpgrade.replaceAll("(.)([A-Z])", "$1 $2"), 50);
+        button.setHeight(getMyImage().getHeight());
+        button.setWidth(getMyImage().getWidth());
+        button.setFont("Monospaced");
         if (selectedUpgrade.contains("Ultimate")) {
             button.setColor(78, 18, 80);
         }
@@ -68,6 +71,8 @@ public class UpgradeButton extends GraphicalObject {
 
     public void removeButton() {
         ProgramController.viewController.removeDrawable(button, 1);
+        ProgramController.viewController.removeDrawable(imageButton, 1);
+        ProgramController.viewController.removeDrawable(this,1);
     }
 }
 

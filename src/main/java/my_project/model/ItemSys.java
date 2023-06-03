@@ -37,12 +37,16 @@ public class ItemSys {
 
     }
     public String newRandomWeapon() {
+        if (weaponTypes.size() == 0){
+            selectedWeapon = "Not Available";
+            return selectedWeapon;
+        }
         int rand = (int) (Math.random() * weaponTypes.size());
         selectedWeapon = weaponTypes.get(rand);
         try {
             Class<?> clazz = Class.forName("my_project.model.weapons." + selectedWeapon);
             if (player.weapons.get(clazz) != null && player.weapons.get(clazz).getLevel() >= Config.UPGRADE_LIMIT ){
-                return selectedWeapon + " Ultimate";
+                return selectedWeapon + "Ultimate";
             }
         } catch (ClassNotFoundException e) {
             return selectedWeapon;
@@ -73,6 +77,9 @@ public class ItemSys {
             Class<?> clazz = Class.forName("my_project.model.weapons." + weaponName);
             Constructor<?> constructor = clazz.getConstructor(double.class, double.class, Player.class);
             Object instance = constructor.newInstance(player.getX(),player.getY(),player);
+            if(player.weapons.get(clazz) != null && player.weapons.get(clazz).getLevel() == Config.UPGRADE_LIMIT){
+                weaponTypes.remove(weaponName);
+            }
             player.receiveWeapon((Weapon) instance);
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException |
                  InvocationTargetException e) {
