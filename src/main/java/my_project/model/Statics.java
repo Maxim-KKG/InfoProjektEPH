@@ -16,7 +16,7 @@ public class Statics extends GraphicalObject {
         strengh = amount;
     }
 
-    public static void restart(){
+    public static void reset(){
         timer = 0;
         strengh = 0;
     }

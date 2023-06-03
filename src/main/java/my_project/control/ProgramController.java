@@ -1,9 +1,6 @@
 package my_project.control;
 
-import KAGO_framework.control.SoundController;
 import KAGO_framework.control.ViewController;
-import KAGO_framework.view.simple_gui.Button;
-import KAGO_framework.view.simple_gui.ButtonHandler;
 import my_project.model.enemies.Enemy;
 import my_project.model.enemies.Fly;
 import my_project.model.enemies.Wasp;
@@ -13,10 +10,7 @@ import my_project.model.weapons.Egg;
 import my_project.model.*;
 import my_project.model.weapons.Rocket;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -86,7 +80,7 @@ public class ProgramController {
         RetryButton rb = new RetryButton(300,300,this);
         viewController.draw(rb,3);
         viewController.register(rb,3);
-        Statics.restart();
+        Statics.reset();
     }
     /**
      * Aufruf mit jeder Frame

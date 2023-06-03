@@ -78,11 +78,13 @@ public class Label extends GraphicalObject {
             drawTool.drawImage(getMyImage(),x,y);
         }else {
             drawTool.formatText(font, style, textsize);
-            drawTool.drawText(x + 5, y + height * 0.8, text);
+            drawTool.drawText(x + (width/2)-text.length(), y + height * 0.6, text);
         }
         if (hasBorder){
-            drawTool.setCurrentColor(0, 0, 0, 255);
-            drawTool.drawRectangle(x, y, width, height);
+            for(int i = 1; i <= 10; i++){
+                drawTool.setCurrentColor(0, 0, 0, 255);
+                drawTool.drawRectangle(x-i,y-i,width+(i*2),height+(i*2));
+            }
         }
     }
 

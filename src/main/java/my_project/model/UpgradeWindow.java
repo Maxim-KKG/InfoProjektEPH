@@ -17,9 +17,9 @@ public class UpgradeWindow {
         ProgramController.viewController.showScene(1);
         Statics.reset();
         upgradeButtons = new ArrayList<>(Arrays.asList(
-                new UpgradeButton(0, 10, "Weapon", itemSys, this),
-                new UpgradeButton(0, 300, "Passive", itemSys, this),
-                new UpgradeButton(0, 600, "PlayerUpgrade", itemSys, this)));
+                new UpgradeButton(90, 40, "Weapon", itemSys, this),
+                new UpgradeButton(90, 290, "Passive", itemSys, this),
+                new UpgradeButton(90, 530, "PlayerUpgrade", itemSys, this)));
 
     }
     public void destroy(){
