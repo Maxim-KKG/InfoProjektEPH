@@ -75,10 +75,10 @@ public class Label extends GraphicalObject {
     public void draw(DrawTool drawTool) {
         drawTool.setCurrentColor(r, g, b, 255);
         if(getMyImage() != null){
-            drawTool.drawImage(getMyImage(),x,y);
+            drawTool.drawImage(getMyImage(),x,y,false);
         }else {
             drawTool.formatText(font, style, textsize);
-            drawTool.drawText(x + (width/2)-text.length(), y + height * 0.6, text);
+            drawTool.drawText(x + (width/2)-(text.length()/2.5)*(textsize/1.25), y + height * 0.6, text);
         }
         if (hasBorder){
             for(int i = 1; i <= 10; i++){

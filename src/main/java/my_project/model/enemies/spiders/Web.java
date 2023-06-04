@@ -28,13 +28,17 @@ public class Web extends Enemy {
     public void update(double dt){
         if(x > Config.WINDOW_WIDTH + 200){
             ProgramController.viewController.removeDrawable(this);
+            ProgramController.enemies.remove(this);
         }else if(x < -200){
             ProgramController.viewController.removeDrawable(this);
+            ProgramController.enemies.remove(this);
         }
         if(y > Config.WINDOW_HEIGHT + 200){
             ProgramController.viewController.removeDrawable(this);
+            ProgramController.enemies.remove(this);
         }else if(y < -200){
             ProgramController.viewController.removeDrawable(this);
+            ProgramController.enemies.remove(this);
         }
         double dx = Math.cos(degrees)*speed*dt;
         double dy = Math.sin(degrees)*speed*dt;

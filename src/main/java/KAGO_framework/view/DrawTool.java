@@ -24,8 +24,20 @@ public class DrawTool {
      * @param x Die x-Koordinate der oberen linken Ecke
      * @param y Die y-Koordinate der oberen linken Ecke
      */
+    public void drawImage(BufferedImage bI, double x, double y, boolean affectedByCamShake){
+        if(affectedByCamShake) {
+            if (graphics2D != null) {
+                graphics2D.drawImage(bI, (int) x + (int) Statics.cameraX, (int) y + (int) Statics.cameraY, null);
+            }
+        }else{
+            if (graphics2D != null) {
+                graphics2D.drawImage(bI, (int) x, (int) y, null);
+            }
+        }
+    }
+
     public void drawImage(BufferedImage bI, double x, double y){
-        if (graphics2D!= null) graphics2D.drawImage(bI, (int)x + (int)Statics.cameraX, (int)y + (int)Statics.cameraY, null);
+        drawImage(bI,x,y,true);
     }
 
     /**

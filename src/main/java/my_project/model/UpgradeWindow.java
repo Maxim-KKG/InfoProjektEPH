@@ -11,6 +11,7 @@ public class UpgradeWindow {
     public static boolean isActive = false;
 
     public UpgradeWindow(ItemSys itemSys){
+        Statics.reset();
         if(isActive)
             return;
         isActive = true;

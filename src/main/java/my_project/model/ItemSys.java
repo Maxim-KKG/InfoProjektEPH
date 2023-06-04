@@ -46,7 +46,7 @@ public class ItemSys {
         try {
             Class<?> clazz = Class.forName("my_project.model.weapons." + selectedWeapon);
             if (player.weapons.get(clazz) != null && player.weapons.get(clazz).getLevel() >= Config.UPGRADE_LIMIT ){
-                return selectedWeapon + "Ultimate";
+                return selectedWeapon + "DX";
             }
         } catch (ClassNotFoundException e) {
             return selectedWeapon;
@@ -54,15 +54,25 @@ public class ItemSys {
         return selectedWeapon;
     }
     public String newRandomPassive(){
+        if (passiveTypes.size() == 0){
+            selectedPassive = "Not Available";
+            return selectedPassive;
+        }
         int rand = (int) (Math.random() * passiveTypes.size());
         selectedPassive = passiveTypes.get(rand);
         return selectedPassive;
     }
+
     public String newRandomPlayerUpgrade(){
+        if (playerUpgradeTypes.size() == 0){
+            selectedPlayerUpgrade = "Not Available";
+            return selectedPlayerUpgrade;
+        }
         int rand = (int) (Math.random() * playerUpgradeTypes.size());
         selectedPlayerUpgrade = playerUpgradeTypes.get(rand);
         return selectedPlayerUpgrade;
     }
+
     public String newRandomUpgrade(String type){
         int rand = (int) (Math.random() * types.get(type).length);
         selections.put(type,types.get(type)[rand]);
@@ -102,7 +112,6 @@ public class ItemSys {
     }
     public void chooseSelectedPlayerUpgrade(){
         applyPlayerUpgrade(selectedPlayerUpgrade);
-        //TODO Implement player Upgrades
     }
     private void applyPlayerUpgrade(String playerUpgradeName){
         switch (playerUpgradeName){
@@ -111,11 +120,14 @@ public class ItemSys {
                 playerUpgradeTypes.remove("Shield");
             }
             case "Speed":{
-                Player.speed++;
-                playerUpgradeTypes.remove("Shield");
+                Player.speed += 50;
+                if(Player.speed >= 350)
+                    playerUpgradeTypes.remove("Speed");
             }
             case "AttackSpeed":{
                 Player.shootCooldown /= 1.5;
+                if(Player.shootCooldown <= 0.1)
+                    playerUpgradeTypes.remove("AttackSpeed");
             }
         }
     }

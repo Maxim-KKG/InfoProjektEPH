@@ -64,8 +64,8 @@ public class UpgradeButton extends GraphicalObject {
         button.setHeight(getMyImage().getHeight());
         button.setWidth(getMyImage().getWidth());
         button.setFont("Monospaced");
-        if (selectedUpgrade.contains("Ultimate")) {
-            button.setColor(78, 18, 80);
+        if (selectedUpgrade.contains("DX")) {
+            button.setColor(64, 51, 83);
         }
     }
 
