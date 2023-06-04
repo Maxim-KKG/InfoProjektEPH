@@ -43,7 +43,7 @@ public class Egg extends Weapon {
         y += dy;
         if(!ProgramController.gameActive && calculateDistance(375,75) < 45){
             ProgramController.gameActive = true;
-            ProgramController.viewController.draw(new Explosion(400,400,600));
+            ProgramController.viewController.draw(new Explosion(400,400,600),0);
             Statics.cameraShake(300,0.5);
             SoundController.playSound("mainTrack");
             ProgramController.viewController.removeDrawable(this);

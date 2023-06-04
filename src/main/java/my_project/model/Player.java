@@ -62,6 +62,7 @@ public class Player extends InteractiveGraphicalObject {
         shootCooldown = 0.4;
         health = 3;
         maxHealth = health;
+        weapons = new HashMap<>();
     }
 
 
@@ -75,6 +76,7 @@ public class Player extends InteractiveGraphicalObject {
             ProgramController.viewController.draw(weapon,0);
         }
     }
+
     public void receivePassive(Passive passive) {
         if (passives.get(passive.getClass()) != null) {
             if (passives.get(passive.getClass()).getLevel() < Config.UPGRADE_LIMIT) {
@@ -211,6 +213,10 @@ public class Player extends InteractiveGraphicalObject {
     }
     private void die(){
         if(health <= 0){
+            Statics.reset();
+            RetryButton rb = new RetryButton(p);
+            ProgramController.viewController.draw(rb,3);
+            ProgramController.rb = rb;
             ProgramController.viewController.showScene(3);
         }
     }

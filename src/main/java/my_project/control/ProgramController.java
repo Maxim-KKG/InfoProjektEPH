@@ -30,6 +30,7 @@ public class ProgramController {
     public Player player;
     public Statics statics;
     public double clickCooldown;
+    public static RetryButton rb;
     private BufferedImage b;
 
 
@@ -62,6 +63,7 @@ public class ProgramController {
     }
 
     public void newGame(){
+        viewController.removeDrawable(rb);
         viewController.showScene(0);
         statics = new Statics();
         viewController.draw(statics);
@@ -77,9 +79,6 @@ public class ProgramController {
         ItemSys itemSys = new ItemSys(player);
         player.setItemSys(itemSys);
         viewController.draw(new UI(player,itemSys));
-        RetryButton rb = new RetryButton(300,300,this);
-        viewController.draw(rb,3);
-        viewController.register(rb,3);
         Statics.reset();
     }
     /**

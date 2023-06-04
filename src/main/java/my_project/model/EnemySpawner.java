@@ -9,7 +9,7 @@ public class EnemySpawner extends GraphicalObject {
     private ProgramController programController;
     private double timer, waveTimer = 0;
     private double spawnRadius = 600;
-    private int waveIndex = 3;
+    private int waveIndex = 0;
     private int waveLength = 200;
     private double waveEnemySpawnTimer = 1;
 

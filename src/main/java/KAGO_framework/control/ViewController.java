@@ -7,6 +7,7 @@ import my_project.control.ProgramController;
 import KAGO_framework.view.DrawFrame;
 import KAGO_framework.view.DrawingPanel;
 import my_project.model.Background;
+import my_project.model.RetryButton;
 import my_project.model.UI;
 import my_project.model.pickups.Bread;
 
@@ -312,11 +313,12 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
         ArrayList<Drawable> temporaryList = new ArrayList<>();
         temporaryList = addToList(temporaryList, Background.class);
         temporaryList = addToList(temporaryList, Bread.class);
+        temporaryList = addToList(temporaryList, RetryButton.class);
 
         Iterator<Drawable> temporaryIterator = scenes.get(currentScene).drawables.iterator();
         while (temporaryIterator.hasNext() && notChangingDrawables){
             Drawable currentObject = temporaryIterator.next();
-            if(currentObject.getClass() != Background.class && currentObject.getClass() != Bread.class && currentObject.getClass() != UI.class){
+            if(currentObject.getClass() != Background.class && currentObject.getClass() != Bread.class && currentObject.getClass() != UI.class && currentObject.getClass() != RetryButton.class){
                 temporaryList.add(currentObject);
             }
         }
