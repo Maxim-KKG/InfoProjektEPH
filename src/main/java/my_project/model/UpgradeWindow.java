@@ -15,7 +15,6 @@ public class UpgradeWindow {
             return;
         isActive = true;
         ProgramController.viewController.showScene(1);
-        Statics.reset();
         upgradeButtons = new ArrayList<>(Arrays.asList(
                 new UpgradeButton(90, 40, "Weapon", itemSys, this),
                 new UpgradeButton(90, 290, "Passive", itemSys, this),

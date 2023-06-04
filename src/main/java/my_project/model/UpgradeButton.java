@@ -28,9 +28,9 @@ public class UpgradeButton extends GraphicalObject {
             case "PlayerUpgrade" -> selectedUpgrade = itemSys.newRandomPlayerUpgrade();
         }
         switch (upgradeType) {
-            case "Weapon" -> setNewImage("src/main/resources/graphic/buttons/Red.png");
-            case "Passive" -> setNewImage("src/main/resources/graphic/buttons/Blue.png");
-            case "PlayerUpgrade" -> setNewImage("src/main/resources/graphic/buttons/Green.png");
+            case "Weapon" -> setNewImage("src/main/resources/graphic/buttons/RedButton.png");
+            case "Passive" -> setNewImage("src/main/resources/graphic/buttons/BlueButton.png");
+            case "PlayerUpgrade" -> setNewImage("src/main/resources/graphic/buttons/GreenButton.png");
         }
 
 

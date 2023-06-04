@@ -84,7 +84,7 @@ public class Player extends InteractiveGraphicalObject {
             passives.put(passive.getClass(),passive);
             ProgramController.viewController.draw(passive);
         }
-        //TODO fuse receive Methods to one
+        //TODO fuse receive Methods to oness
     }
 
     private void setPictures() {
