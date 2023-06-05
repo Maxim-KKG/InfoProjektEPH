@@ -22,6 +22,7 @@ public class RetryButton extends GraphicalObject{
     private ProgramController p;
     private Button button;
     private BufferedImage image;
+    private boolean wasPressed = false;
 
     public RetryButton(ProgramController p){
         this.p = p;
@@ -30,7 +31,10 @@ public class RetryButton extends GraphicalObject{
         ButtonHandler buttonHandler = new ButtonHandler() {
             @Override
             public void processButtonClick(int code) {
-                restartGame();
+                if(!wasPressed) {
+                    wasPressed = true;
+                    restartGame();
+                }
             }
 
             @Override

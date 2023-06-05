@@ -35,6 +35,7 @@ public class ItemSys{
         types.put("Passive", new String[]{"PickupRange","BreadDroprate"});
         types.put("PlayerUpgrades", new String[]{"Shield","Speed","AttackSpeed"});
     }
+
     public String newRandomWeapon() {
         if (weaponTypes.size() == 0){
             selectedWeapon = "Not Available";
@@ -52,6 +53,7 @@ public class ItemSys{
         }
         return selectedWeapon;
     }
+
     public String newRandomPassive(){
         if (passiveTypes.size() == 0){
             selectedPassive = "Not Available";
@@ -97,6 +99,9 @@ public class ItemSys{
         newPassive(selectedPassive);
     }
     private void newPassive(String passiveName){
+        if(passiveName.equals("Not Available")){
+            return;
+        }
         try {
             Class<?> clazz = Class.forName("my_project.model.passives." + passiveName);
             Constructor<?> constructor = clazz.getConstructor();
@@ -111,6 +116,9 @@ public class ItemSys{
         applyPlayerUpgrade(selectedPlayerUpgrade);
     }
     private void applyPlayerUpgrade(String playerUpgradeName){
+        if(playerUpgradeName.equals("Not Available")){
+            return;
+        }
         switch (playerUpgradeName){
             case "Shield":{
                 Player.shield = true;
@@ -132,7 +140,6 @@ public class ItemSys{
         bread += amount;
         if (levelIndex > Config.BREAD_PER_LEVEL.length-1)
             levelIndex = Config.BREAD_PER_LEVEL.length-1;
-        //TODO Real max level handling
         if (bread > Config.BREAD_PER_LEVEL[levelIndex]){
             bread = 0;
             levelIndex += 1;

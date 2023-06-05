@@ -54,7 +54,7 @@ public class Player extends InteractiveGraphicalObject {
 
     private void setVariables(){
         shield = false;
-        pickupRange = 8;
+        pickupRange = 16;
         speed = 150;
         shootCooldown = 0.4;
         health = 3;
