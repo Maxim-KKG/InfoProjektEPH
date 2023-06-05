@@ -6,6 +6,6 @@ public class PickupRange extends Passive{
     @Override
     public void upgrade() {
         super.upgrade();
-        Player.pickupRange += 25;
+        Player.pickupRange += 40;
     }
 }

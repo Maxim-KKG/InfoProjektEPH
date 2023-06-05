@@ -30,7 +30,6 @@ public class ProgramController {
     public Player player;
     public Statics statics;
     public double clickCooldown;
-    public static RetryButton rb;
     private BufferedImage b;
 
 
@@ -63,8 +62,8 @@ public class ProgramController {
     }
 
     public void newGame(){
-        viewController.removeDrawable(rb);
         viewController.showScene(0);
+        Enemy.breadDroprate = 0.5;
         statics = new Statics();
         viewController.draw(statics);
         Background background = new Background();
@@ -124,7 +123,7 @@ public class ProgramController {
 
     public void spawnRocket(double x, double y, Player player,int enemyIndex){
         Rocket rocket = new Rocket(x,y,player,enemyIndex);
-        viewController.draw(rocket);
+        viewController.draw(rocket,0);
     }
     public void shootNet(double x, double y, Player player){
         Web net = new Web(x,y,player);

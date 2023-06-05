@@ -52,8 +52,8 @@ public abstract class Enemy extends GraphicalObject{
         ProgramController.viewController.draw(new Explosion(x,y,hitRadius),0);
         if(Math.random() < breadDroprate-(dropRarity*0.4)){
             switch (dropRarity){
-                case 0 -> ProgramController.viewController.draw(new Bread(x, y, p));
-                case 1 -> ProgramController.viewController.draw(new Honeycomb(x, y, p));
+                case 0 -> ProgramController.viewController.draw(new Bread(x, y, p),0);
+                case 1 -> ProgramController.viewController.draw(new Honeycomb(x, y, p),0);
             }
         }
         isDead = true;

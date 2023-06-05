@@ -14,10 +14,9 @@ import java.util.HashMap;
 
 public class ItemSys {
     private Player player;
-    private int levelIndex = 0;
+    private int levelIndex;
     private int bread;
     private HashMap<String,String[]> types = new HashMap<>();
-    private HashMap<String,String> selections = new HashMap<>();
     //Weapons
     private ArrayList<String> weaponTypes =  new ArrayList<>(Arrays.asList("RocketLauncher","Gyro","Forcefield"));
     private String selectedWeapon;
@@ -30,11 +29,10 @@ public class ItemSys {
 
     public ItemSys(Player player) {
         this.player = player;
-
+        levelIndex = 0;
         types.put("Weapon", new String[]{"RocketLauncher", "Gyro", "Forcefield"});
         types.put("Passive", new String[]{"PickupRange","BreadDroprate"});
         types.put("PlayerUpgrades", new String[]{"Shield","Speed","AttackSpeed"});
-
     }
     public String newRandomWeapon() {
         if (weaponTypes.size() == 0){
@@ -73,12 +71,6 @@ public class ItemSys {
         return selectedPlayerUpgrade;
     }
 
-    public String newRandomUpgrade(String type){
-        int rand = (int) (Math.random() * types.get(type).length);
-        selections.put(type,types.get(type)[rand]);
-        return selections.get(type);
-        //TODO Make RandomUpgrade and newUpgrades usable
-    }
     public void chooseSelectedWeapon(){
         newWeapon(selectedWeapon);
     }

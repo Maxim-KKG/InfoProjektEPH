@@ -22,8 +22,6 @@ public class Player extends InteractiveGraphicalObject {
     // These variables can be changed as upgrades
     public static double speed;
     public static double shootCooldown;
-    private boolean rocket = false;
-    private double rocketCooldown = 5;
     //Statics for Passives
     public static double pickupRange;
     public static boolean shield;
@@ -50,7 +48,6 @@ public class Player extends InteractiveGraphicalObject {
         this.x = x;
         this.y = y;
         this.p = p;
-        this.setNewImage("src/main/resources/graphic/duck/DuckRight1.png");
         setPictures();
         setVariables();
     }
@@ -63,6 +60,7 @@ public class Player extends InteractiveGraphicalObject {
         health = 3;
         maxHealth = health;
         weapons = new HashMap<>();
+        passives = new HashMap<>();
     }
 
 
@@ -84,9 +82,9 @@ public class Player extends InteractiveGraphicalObject {
             }
         } else {
             passives.put(passive.getClass(),passive);
+            passive.upgrade();
             ProgramController.viewController.draw(passive);
         }
-        //TODO fuse receive Methods to oness
     }
 
     private void setPictures() {
@@ -174,8 +172,10 @@ public class Player extends InteractiveGraphicalObject {
         die();
     }
     public void receiveBread(int amount){
-        if(itemSys.receiveBread(amount))
+        if(itemSys.receiveBread(amount)) {
             mouseDown = false;
+            health = maxHealth;
+        }
     }
 
     public void setItemSys(ItemSys itemSys){
@@ -216,7 +216,6 @@ public class Player extends InteractiveGraphicalObject {
             Statics.reset();
             RetryButton rb = new RetryButton(p);
             ProgramController.viewController.draw(rb,3);
-            ProgramController.rb = rb;
             ProgramController.viewController.showScene(3);
         }
     }

@@ -9,7 +9,7 @@ import java.sql.Array;
 public class Config {
 
     // Titel des Programms (steht oben in der Fenstertitelzeile)
-    public final static String WINDOW_TITLE = "Leeres Vorlagenprojekt des KAGO-Frameworks";
+    public final static String WINDOW_TITLE = "Ducktato";
 
     // Konfiguration des Standardfensters: Anzeige und Breite des Programmfensters (Width) und Höhe des Programmfensters (Height)
     public final static boolean SHOW_DEFAULT_WINDOW = true;

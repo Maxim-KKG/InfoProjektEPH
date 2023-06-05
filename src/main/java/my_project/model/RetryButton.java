@@ -21,7 +21,6 @@ public class RetryButton extends GraphicalObject{
 
     private ProgramController p;
     private Button button;
-    private Button imageButton;
     private BufferedImage image;
 
     public RetryButton(ProgramController p){
@@ -45,7 +44,6 @@ public class RetryButton extends GraphicalObject{
             }
         };
 
-        imageButton = new Button(buttonHandler,0,90,290,image,true);
         button = new Button(buttonHandler, 0, 90, 290,"Retry", 50);
         button.setHeight(image.getHeight());
         button.setWidth(image.getWidth());
@@ -54,7 +52,9 @@ public class RetryButton extends GraphicalObject{
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawImage(image,90,290);
+        Statics.cameraX = 0;
+        Statics.cameraY = 0;
+        drawTool.drawImage(image,90-Statics.cameraX,290-Statics.cameraY);
     }
 
     private void setPicture(String pathToImage) {
@@ -75,8 +75,9 @@ public class RetryButton extends GraphicalObject{
     }
 
     private void remove(){
-        ProgramController.viewController.removeDrawable(button);
-        ProgramController.viewController.removeDrawable(imageButton,3);
+        ProgramController.viewController.removeDrawable(button,3);
+        ProgramController.viewController.removeDrawable(button,1);
         ProgramController.viewController.removeDrawable(this,3);
+        ProgramController.viewController.removeDrawable(this,1);
     }
 }
