@@ -30,6 +30,7 @@ public class ProgramController {
     public Player player;
     public Statics statics;
     public double clickCooldown;
+    public ItemSys itemSys;
     private BufferedImage b;
 
 
@@ -75,9 +76,9 @@ public class ProgramController {
         viewController.register(player);
         EnemySpawner enemySpawner = new EnemySpawner(player,this);
         viewController.draw(enemySpawner);
-        ItemSys itemSys = new ItemSys(player);
+        itemSys = new ItemSys(player);
         player.setItemSys(itemSys);
-        viewController.draw(new UI(player,itemSys));
+        viewController.draw(new UI(player,itemSys),0);
         Statics.reset();
     }
     /**
@@ -85,6 +86,7 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
+        System.out.println(itemSys.selectedWeapon);
         clickCooldown += 0.1 * dt;
         if (viewController.getCurrentScene() == 0) {
             timer += dt;

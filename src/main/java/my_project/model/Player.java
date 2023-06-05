@@ -42,7 +42,7 @@ public class Player extends InteractiveGraphicalObject {
     private ArrayList<BufferedImage> images = new ArrayList<>();
     public HashMap<Class<?>, Weapon> weapons = new HashMap<>();
     private HashMap<Class<?>, Passive> passives = new HashMap<>();
-    private ItemSys itemSys;
+    public ItemSys itemSys;
 
     public Player(double x, double y, ProgramController p) {
         this.x = x;

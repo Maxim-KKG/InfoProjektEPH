@@ -48,6 +48,7 @@ public class RetryButton extends GraphicalObject{
         button.setHeight(image.getHeight());
         button.setWidth(image.getWidth());
         button.setFont("Monospaced");
+        viewController.draw(button,3);
     }
 
     @Override

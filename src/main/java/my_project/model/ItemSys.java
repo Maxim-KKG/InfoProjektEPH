@@ -1,5 +1,6 @@
 package my_project.model;
 
+import KAGO_framework.model.GraphicalObject;
 import my_project.Config;
 import my_project.control.ProgramController;
 import my_project.model.passives.Passive;
@@ -12,14 +13,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class ItemSys {
+public class ItemSys{
     private Player player;
     private int levelIndex;
     private int bread;
     private HashMap<String,String[]> types = new HashMap<>();
     //Weapons
     private ArrayList<String> weaponTypes =  new ArrayList<>(Arrays.asList("RocketLauncher","Gyro","Forcefield"));
-    private String selectedWeapon;
+    public String selectedWeapon;
     //Passives
     private ArrayList<String> passiveTypes = new ArrayList<>(Arrays.asList("PickupRange","BreadDroprate"));
     private String selectedPassive;
@@ -72,9 +73,13 @@ public class ItemSys {
     }
 
     public void chooseSelectedWeapon(){
+        System.out.println(selectedWeapon);
         newWeapon(selectedWeapon);
     }
     private void newWeapon(String weaponName){
+        if(weaponName.equals("Not Available")){
+            return;
+        }
         try {
             Class<?> clazz = Class.forName("my_project.model.weapons." + weaponName);
             Constructor<?> constructor = clazz.getConstructor(double.class, double.class, Player.class);

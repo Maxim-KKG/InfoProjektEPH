@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 public class UpgradeButton extends GraphicalObject {
     private String selectedUpgrade;
     private String upgradeType;
-    private ItemSys itemSys;
+    private static ItemSys itemSys; //TODO less shady solution
     private Button button;
     private Button imageButton;
     private static boolean chosen;
@@ -39,9 +39,9 @@ public class UpgradeButton extends GraphicalObject {
             public void processButtonClick(int code) {
                 if (!chosen) {
                     switch (upgradeType) {
-                        case "Weapon" -> itemSys.chooseSelectedWeapon();
-                        case "Passive" -> itemSys.chooseSelectedPassive();
-                        case "PlayerUpgrade" -> itemSys.chooseSelectedPlayerUpgrade();
+                        case "Weapon" -> UpgradeButton.itemSys.chooseSelectedWeapon();
+                        case "Passive" -> UpgradeButton.itemSys.chooseSelectedPassive();
+                        case "PlayerUpgrade" -> UpgradeButton.itemSys.chooseSelectedPlayerUpgrade();
                     }
                     chosen = true;
                 }
