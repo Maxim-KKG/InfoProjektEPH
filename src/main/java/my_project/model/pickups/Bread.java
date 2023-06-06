@@ -57,7 +57,7 @@ public class Bread extends GraphicalObject {
     }
 
     private void checkAndHandleCollision() {
-        if (player.collidesWith(this)) {
+        if (getDistanceTo(player) < 16) {
             player.receiveBread(breadAmount);
             ProgramController.viewController.removeDrawable(this);
         }
