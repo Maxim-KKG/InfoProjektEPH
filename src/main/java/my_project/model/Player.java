@@ -20,11 +20,11 @@ import java.util.HashMap;
 public class Player extends InteractiveGraphicalObject {
 
     // These variables can be changed as upgrades
+    public static boolean spreadShot;
     public static double speed;
     public static double shootCooldown;
     //Statics for Passives
     public static double pickupRange;
-    public static boolean shield;
     private int health;
     private int maxHealth;
     // These variables are here for functionality
@@ -41,7 +41,7 @@ public class Player extends InteractiveGraphicalObject {
     private double shootingTimer = 0;
     private ArrayList<BufferedImage> images = new ArrayList<>();
     public HashMap<Class<?>, Weapon> weapons = new HashMap<>();
-    private HashMap<Class<?>, Passive> passives = new HashMap<>();
+    public HashMap<Class<?>, Passive> passives = new HashMap<>();
     public ItemSys itemSys;
 
     public Player(double x, double y, ProgramController p) {
@@ -53,8 +53,8 @@ public class Player extends InteractiveGraphicalObject {
     }
 
     private void setVariables(){
-        shield = false;
-        pickupRange = 16;
+        spreadShot = false;
+        pickupRange = 25;
         speed = 150;
         shootCooldown = 0.4;
         health = 3;
@@ -124,8 +124,20 @@ public class Player extends InteractiveGraphicalObject {
         degrees = Math.atan2(mouseY - y, mouseX - x);
         boolean movedX = true;
         boolean movedY = true;
+        shootingTimer += dt;
+        double actualShootCooldown = shootCooldown;
+        if(spreadShot)
+            actualShootCooldown *= 2;
+        if (mouseDown && shootingTimer > actualShootCooldown) {
+            shootingTimer = 0;
+            if(spreadShot){
+                p.spawnEgg(x, y, degrees-0.3);
+                p.spawnEgg(x, y, degrees+0.3);
+            }
+            p.spawnEgg(x, y, degrees);
+        }
         double currentSpeed = speed;
-        if(shootingTimer < shootCooldown)
+        if(shootingTimer < shootCooldown || mouseDown)
             currentSpeed /= 2;
         if (ViewController.isKeyDown(65)) {
             facingRight = false;
@@ -160,11 +172,6 @@ public class Player extends InteractiveGraphicalObject {
             usedPictureIndex = pictureIndex;
         } else {
             usedPictureIndex = pictureIndex + 6;
-        }
-        shootingTimer += dt;
-        if (mouseDown && shootingTimer > shootCooldown) {
-            shootingTimer = 0;
-            p.spawnEgg(x, y, degrees);
         }
         if(ViewController.isKeyDown(KeyEvent.VK_SPACE)){
             receiveBread(10);

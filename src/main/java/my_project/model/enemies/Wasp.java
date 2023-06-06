@@ -19,7 +19,7 @@ public class Wasp extends Enemy{
     public Wasp(double x, double y, Player p) {
         super(x, y, p);
         radius = 10;
-        health = 5;
+        health = 3;
         dropRarity = 1;
         programController = p.getProgrammController();
         setPictures();

@@ -17,6 +17,7 @@ public class Egg extends Weapon {
     private double speed = 300;
     private BufferedImage pic;
     private Graphics2D g2d;
+    public static int damageSetter = 2;
 
     public Egg(double x, double y, double degrees){
         super(x,y,null);
@@ -24,7 +25,7 @@ public class Egg extends Weapon {
         setNewImage("src/main/resources/graphic/bullets/Egg.png");
         deathSound = "eggCrack";
         pic = getMyImage();
-        damage = 2;
+        damage = damageSetter;
     }
 
     public void draw(DrawTool drawTool){

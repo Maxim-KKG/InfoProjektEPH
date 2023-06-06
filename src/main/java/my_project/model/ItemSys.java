@@ -4,6 +4,7 @@ import KAGO_framework.model.GraphicalObject;
 import my_project.Config;
 import my_project.control.ProgramController;
 import my_project.model.passives.Passive;
+import my_project.model.weapons.Egg;
 import my_project.model.weapons.Weapon;
 
 import java.lang.reflect.Array;
@@ -25,7 +26,7 @@ public class ItemSys{
     private ArrayList<String> passiveTypes = new ArrayList<>(Arrays.asList("PickupRange","BreadDroprate"));
     private String selectedPassive;
     //Player
-    private ArrayList<String> playerUpgradeTypes = new ArrayList<>(Arrays.asList("Shield","Speed","AttackSpeed"));
+    private ArrayList<String> playerUpgradeTypes = new ArrayList<>(Arrays.asList("Speed","AttackSpeed","EggDamage","Spreadshot"));
     private String selectedPlayerUpgrade;
 
     public ItemSys(Player player) {
@@ -33,7 +34,7 @@ public class ItemSys{
         levelIndex = 0;
         types.put("Weapon", new String[]{"RocketLauncher", "Gyro", "Forcefield"});
         types.put("Passive", new String[]{"PickupRange","BreadDroprate"});
-        types.put("PlayerUpgrades", new String[]{"Shield","Speed","AttackSpeed"});
+        types.put("PlayerUpgrades", new String[]{"Speed","AttackSpeed","EggDamage","Spreadshot"});
     }
 
     public String newRandomWeapon() {
@@ -75,7 +76,6 @@ public class ItemSys{
     }
 
     public void chooseSelectedWeapon(){
-        System.out.println(selectedWeapon);
         newWeapon(selectedWeapon);
     }
     private void newWeapon(String weaponName){
@@ -107,6 +107,9 @@ public class ItemSys{
             Constructor<?> constructor = clazz.getConstructor();
             Object instance = constructor.newInstance();
             player.receivePassive((Passive) instance);
+            if(player.passives.get(clazz) != null && player.passives.get(clazz).getLevel() == Config.UPGRADE_LIMIT){
+                passiveTypes.remove(passiveName);
+            }
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException |
                  InvocationTargetException e) {
             throw new RuntimeException(e);
@@ -120,19 +123,27 @@ public class ItemSys{
             return;
         }
         switch (playerUpgradeName){
-            case "Shield":{
-                Player.shield = true;
-                playerUpgradeTypes.remove("Shield");
+            case "EggDamage": {
+                Egg.damageSetter += 2;
+                if(Egg.damageSetter >= 10)
+                    playerUpgradeTypes.remove("EggDamage");
+                return;
             }
             case "Speed":{
                 Player.speed += 50;
                 if(Player.speed >= 350)
                     playerUpgradeTypes.remove("Speed");
+                return;
             }
             case "AttackSpeed":{
                 Player.shootCooldown /= 1.5;
                 if(Player.shootCooldown <= 0.1)
                     playerUpgradeTypes.remove("AttackSpeed");
+                return;
+            }
+            case "Spreadshot":{
+                Player.spreadShot = true;
+                playerUpgradeTypes.remove("Spreadshot");
             }
         }
     }

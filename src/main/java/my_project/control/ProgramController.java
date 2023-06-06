@@ -65,6 +65,7 @@ public class ProgramController {
     public void newGame(){
         viewController.showScene(0);
         Enemy.breadDroprate = 0.5;
+        Egg.damageSetter = 2;
         statics = new Statics();
         viewController.draw(statics);
         Background background = new Background();
@@ -86,7 +87,6 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
-        System.out.println(itemSys.selectedWeapon);
         clickCooldown += 0.1 * dt;
         if (viewController.getCurrentScene() == 0) {
             timer += dt;
