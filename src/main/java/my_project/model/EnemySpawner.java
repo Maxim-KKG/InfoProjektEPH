@@ -54,8 +54,13 @@ public class EnemySpawner extends GraphicalObject {
                 waveLength = 1;
                 return;
         }
-        waveEnemySpawnTimer = 4;
-        spawnSpider();
+        waveEnemySpawnTimer = 0.5;
+        if(Math.random() < 0.5)
+            spawnFly();
+        else if(Math.random() < 0.7)
+            spawnWasp();
+        else
+            spawnSpider();
     }
 
     private void spawnFly(){
