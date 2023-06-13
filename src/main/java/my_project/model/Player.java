@@ -173,9 +173,6 @@ public class Player extends InteractiveGraphicalObject {
         } else {
             usedPictureIndex = pictureIndex + 6;
         }
-        if(ViewController.isKeyDown(KeyEvent.VK_SPACE)){
-            receiveBread(10);
-        }
         die();
     }
     public void receiveBread(int amount){
