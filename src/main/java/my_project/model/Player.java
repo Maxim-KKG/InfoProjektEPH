@@ -171,7 +171,7 @@ public class Player extends InteractiveGraphicalObject {
         if (facingRight) {
             usedPictureIndex = pictureIndex;
         } else {
-            usedPictureIndex = pictureIndex + 6; // i love boys <3 owowowowowowo
+            usedPictureIndex = pictureIndex + 6;
         }
         die();
     }
